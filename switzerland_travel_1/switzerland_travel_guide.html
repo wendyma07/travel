@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇨🇭 瑞士 2026 旅遊手冊</title>
+<style>
+:root {
+  --navy: #1a2744;
+  --navy2: #243460;
+  --gold: #c9a84c;
+  --gold-light: #f0d98a;
+  --red: #c0392b;
+  --green: #27ae60;
+  --blue: #2475b0;
+  --orange: #e67e22;
+  --bg: #f5f3ee;
+  --white: #ffffff;
+  --border: #e0dcd2;
+  --text: #2c2c2c;
+  --muted: #7f8c8d;
+  --done-bg: #eafaf1; --done-fg: #1e8449;
+  --todo-bg: #fef9e7; --todo-fg: #b7950b;
+  --warn-bg: #fdedec; --warn-fg: #922b21;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Heiti TC", sans-serif; background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.65; }
+
+.header { background: var(--navy); color: white; padding: 1.6rem 1rem 1.2rem; text-align: center; }
+.header-flag { font-size: 2.4rem; margin-bottom: 0.3rem; }
+.header h1 { font-size: 1.4rem; font-weight: 700; color: var(--gold-light); letter-spacing: 0.04em; }
+.header-sub { font-size: 0.78rem; color: rgba(255,255,255,0.55); margin-top: 0.3rem; }
+.header-dates { display: inline-block; margin-top: 0.7rem; background: var(--gold); color: var(--navy); font-weight: 700; font-size: 0.82rem; padding: 0.25rem 0.9rem; border-radius: 20px; }
+
+.nav { display: flex; overflow-x: auto; background: var(--navy2); border-bottom: 2px solid var(--gold); scrollbar-width: none; }
+.nav::-webkit-scrollbar { display: none; }
+.nav-btn { flex: 0 0 auto; padding: 0.65rem 0.9rem; background: none; border: none; color: rgba(255,255,255,0.55); font-size: 0.78rem; cursor: pointer; white-space: nowrap; font-family: inherit; border-bottom: 3px solid transparent; margin-bottom: -2px; }
+.nav-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+.section { display: none; padding: 0.8rem; }
+.section.active { display: block; }
+
+/* DAY CARDS */
+.day-card { background: var(--white); border-radius: 12px; border: 1px solid var(--border); margin-bottom: 0.8rem; overflow: hidden; }
+.day-header { display: flex; align-items: center; gap: 0.7rem; padding: 0.7rem 0.9rem; background: var(--navy); color: white; cursor: pointer; user-select: none; }
+.day-badge { background: var(--gold); color: var(--navy); font-weight: 700; font-size: 0.72rem; padding: 0.2rem 0.5rem; border-radius: 10px; white-space: nowrap; flex-shrink: 0; }
+.day-title { flex: 1; font-weight: 600; font-size: 0.88rem; }
+.day-city { font-size: 0.72rem; color: rgba(255,255,255,0.55); }
+.day-chevron { font-size: 0.72rem; color: var(--gold); }
+.day-body { padding: 0.75rem 0.9rem; }
+.day-body.collapsed { display: none; }
+
+/* INFO ROWS */
+.info-row { display: grid; grid-template-columns: 72px 1fr; gap: 0.3rem 0.5rem; padding: 0.5rem 0; border-bottom: 1px solid var(--border); align-items: start; }
+.info-row:last-child { border-bottom: none; }
+.info-label { font-size: 0.68rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; padding-top: 0.1rem; }
+.info-val { font-size: 0.83rem; }
+
+/* TRANSPORT */
+.transport-block { background: #eef4fb; border-left: 3px solid var(--blue); border-radius: 0 6px 6px 0; padding: 0.5rem 0.7rem; margin: 0.3rem 0; font-size: 0.8rem; line-height: 1.7; }
+.transport-block strong { color: var(--navy); }
+.transport-step { display: flex; align-items: flex-start; gap: 0.4rem; padding: 0.25rem 0; }
+.transport-step-icon { flex-shrink: 0; font-size: 0.85rem; width: 20px; text-align: center; }
+.transport-step-text { flex: 1; font-size: 0.8rem; line-height: 1.5; }
+.transport-step-text a { color: var(--blue); text-decoration: none; font-size: 0.75rem; }
+
+/* PLACE ITEMS */
+.place-item { display: flex; align-items: flex-start; gap: 0.5rem; padding: 0.5rem 0; border-bottom: 1px solid var(--border); }
+.place-item:last-child { border-bottom: none; }
+.place-icon { font-size: 1rem; flex-shrink: 0; width: 22px; text-align: center; }
+.place-name { font-weight: 600; font-size: 0.85rem; }
+.place-note { font-size: 0.75rem; color: var(--muted); margin-top: 0.1rem; line-height: 1.4; }
+.place-links { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.35rem; }
+.map-link { display: inline-flex; align-items: center; gap: 0.2rem; background: #e8f4fd; color: var(--blue); border: 1px solid #c3dff5; border-radius: 6px; padding: 0.15rem 0.45rem; font-size: 0.7rem; font-weight: 600; text-decoration: none; white-space: nowrap; }
+.map-link::before { content: '📍'; font-size: 0.68rem; }
+.transit-link { display: inline-flex; align-items: center; gap: 0.2rem; background: #e8faf0; color: #1a7a42; border: 1px solid #b7dfca; border-radius: 6px; padding: 0.15rem 0.45rem; font-size: 0.7rem; font-weight: 600; text-decoration: none; white-space: nowrap; }
+.transit-link::before { content: '🚇'; font-size: 0.68rem; }
+.sbb-link { display: inline-flex; align-items: center; gap: 0.2rem; background: #fff0f0; color: #c0392b; border: 1px solid #f5c6c6; border-radius: 6px; padding: 0.15rem 0.45rem; font-size: 0.7rem; font-weight: 600; text-decoration: none; white-space: nowrap; }
+.sbb-link::before { content: '🚆'; font-size: 0.68rem; }
+.notion-link { display: inline-flex; align-items: center; gap: 0.2rem; background: #f0effe; color: #5b4fcf; border: 1px solid #c9c3f5; border-radius: 6px; padding: 0.15rem 0.45rem; font-size: 0.7rem; font-weight: 600; text-decoration: none; white-space: nowrap; }
+.notion-link::before { content: '📖'; font-size: 0.68rem; }
+.info-link { display: inline-flex; align-items: center; gap: 0.2rem; background: #fef3e2; color: #b7770d; border: 1px solid #f0c674; border-radius: 6px; padding: 0.15rem 0.45rem; font-size: 0.7rem; font-weight: 600; text-decoration: none; white-space: nowrap; }
+.info-link::before { content: 'ℹ️'; font-size: 0.68rem; }
+
+/* MEAL ITEMS */
+.meal-item { display: flex; align-items: flex-start; gap: 0.5rem; padding: 0.45rem 0; }
+.meal-type { font-size: 0.68rem; font-weight: 700; color: var(--muted); text-transform: uppercase; width: 32px; flex-shrink: 0; padding-top: 0.15rem; }
+.meal-name { font-size: 0.83rem; flex: 1; }
+.meal-name a { color: var(--blue); text-decoration: none; }
+
+/* BADGES */
+.badge { display: inline-block; padding: 0.12rem 0.45rem; border-radius: 10px; font-size: 0.68rem; font-weight: 600; vertical-align: middle; }
+.badge-done { background: var(--done-bg); color: var(--done-fg); }
+.badge-todo { background: var(--todo-bg); color: var(--todo-fg); }
+.badge-warn { background: var(--warn-bg); color: var(--warn-fg); }
+
+/* WARN / TIP BOXES */
+.warnbox { background: var(--warn-bg); border: 2px solid #e74c3c; border-radius: 10px; padding: 0.65rem 0.9rem; margin-bottom: 0.7rem; }
+.warnbox-title { font-weight: 700; color: var(--warn-fg); margin-bottom: 0.3rem; font-size: 0.83rem; }
+.tip { background: #fffbf0; border-left: 4px solid var(--gold); padding: 0.5rem 0.75rem; border-radius: 0 8px 8px 0; margin-bottom: 0.5rem; font-size: 0.8rem; }
+
+/* BOOKINGS */
+.sec-title { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; color: var(--gold); text-transform: uppercase; margin: 1rem 0 0.5rem; }
+.sec-title:first-child { margin-top: 0; }
+.card { background: var(--white); border-radius: 12px; border: 1px solid var(--border); margin-bottom: 0.8rem; overflow: hidden; }
+.card-hd { padding: 0.65rem 0.9rem; background: var(--navy); color: white; font-weight: 600; font-size: 0.83rem; }
+.card-bd { padding: 0.65rem 0.9rem; }
+.br { display: grid; grid-template-columns: 78px 1fr; gap: 0.3rem; padding: 0.55rem 0; border-bottom: 1px solid var(--border); }
+.br:last-child { border-bottom: none; }
+.br-date { font-size: 0.7rem; color: var(--muted); font-weight: 600; }
+.br-name { font-weight: 600; font-size: 0.83rem; }
+.br-note { font-size: 0.73rem; color: var(--muted); margin-top: 0.08rem; }
+
+/* CHECKLIST */
+.ci { display: flex; gap: 0.55rem; padding: 0.5rem 0; border-bottom: 1px solid var(--border); }
+.ci:last-child { border-bottom: none; }
+.ci-icon { font-size: 1rem; flex-shrink: 0; }
+.ci-title { font-weight: 600; font-size: 0.83rem; }
+.ci-desc { font-size: 0.76rem; color: var(--muted); margin-top: 0.1rem; line-height: 1.5; }
+
+/* TIPS */
+.lr { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.3rem; padding: 0.4rem 0; border-bottom: 1px solid var(--border); font-size: 0.78rem; }
+.lr:last-child { border-bottom: none; }
+.ebox { background: #fdedec; border: 2px solid var(--red); border-radius: 10px; padding: 0.7rem 0.9rem; margin-bottom: 0.8rem; }
+.ebox-title { font-weight: 700; color: var(--red); margin-bottom: 0.35rem; font-size: 0.83rem; }
+.ebox-item { font-size: 0.8rem; padding: 0.12rem 0; }
+.ebox-num { font-weight: 700; font-family: monospace; }
+/* ── 替代方案比較表 ── */
+.compare-wrap { overflow-x: auto; margin: 0.5rem 0; }
+.compare-table { width: 100%; border-collapse: collapse; font-size: 0.75rem; min-width: 420px; }
+.compare-table th { background: var(--navy); color: white; padding: 0.45rem 0.6rem; font-weight: 700; text-align: left; }
+.compare-table th:first-child { width: 90px; }
+.compare-table td { border: 1px solid var(--border); padding: 0.4rem 0.6rem; vertical-align: top; line-height: 1.55; }
+.compare-table tr:nth-child(even) td { background: #faf9f5; }
+.compare-table td:first-child { font-weight: 700; font-size: 0.7rem; color: var(--navy2); background: #eef1f8; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-flag">🇨🇭</div>
+  <h1>瑞士 2026 旅遊手冊</h1>
+  <div class="header-sub">全家出動 · 12 天深度之旅</div>
+  <div class="header-dates">2026 / 06 / 27 — 07 / 08</div>
+</div>
+
+<nav class="nav">
+  <button class="nav-btn active" onclick="showTab('itinerary',this)">📅 每日行程</button>
+  <button class="nav-btn" onclick="showTab('bookings',this)">🎟 訂單</button>
+  <button class="nav-btn" onclick="showTab('checklist',this)">✅ 行前清單</button>
+  <button class="nav-btn" onclick="showTab('tips',this)">💡 實用資訊</button>
+</nav>
+
+<!-- ══════════ 每日行程 ══════════ -->
+<div class="section active" id="itinerary">
+
+<!-- 6/26 -->
+<div class="day-card">
+  <div class="day-header" onclick="toggle(this)">
+    <span class="day-badge">6/26 Fri</span>
+    <div><div class="day-title">✈️ 台灣出發</div><div class="day-city">桃園機場 TPE</div></div>
+    <span class="day-chevron">▼</span>
+  </div>
+  <div class="day-body">
+    <div class="info-row">
+      <div class="info-label">交通</div>
+      <div class="info-val">
+        <div class="transport-block">
+          <div class="transport-step"><div class="transport-step-icon">🕗</div><div class="transport-step-text"><strong>20:00</strong> 從家出發前往桃園機場</div></div>
+          <div class="transport-step"><div class="transport-step-icon">✈️</div><div class="transport-step-text"><strong>EK387</strong> 00:30 起飛 → 杜拜轉機 → 蘇黎世（6/27 抵）
+            <div class="place-links"><a class="map-link" href="https://www.google.com/maps/place/Taiwan+Taoyuan+International+Airport/@25.0777,121.2322,14z" target="_blank">桃園機場</a>
+              <a class="transit-link" href="https://www.google.com/maps/dir/?api=1&destination=Taiwan+Taoyuan+International+Airport&travelmode=transit" target="_blank">交通路線</a>
+              <a class="info-link" href="https://www.google.com/maps/place/Taiwan+Taoyuan+International+Airport/@25.0777,121.2322,14z" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Taiwan+Taoyuan+International+Airport" target="_blank">詳細資訊</a>
+            </div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+    <div class="info-row"><div class="info-label">餐食</div><div class="info-val">機場簡餐 → 機上餐</div></div>
+  </div>
+</div>
+
+<!-- 6/27 -->
+<div class="day-card">
+  <div class="day-header" onclick="toggle(this)">
+    <span class="day-badge">6/27 Sat</span>
+    <div><div class="day-title">🏙 抵達蘇黎世・老城初探</div><div class="day-city">Zürich ｜ Hotel St. Josef</div></div>
+    <span class="day-chevron">▼</span>
+  </div>
+  <div class="day-body">
+    <div class="info-row">
+      <div class="info-label">住宿</div>
+      <div class="info-val">
+        <div class="place-item" style="padding:0; border:none;">
+          <div>
+            <div class="place-name">Hotel St. Josef <span class="badge badge-done">Check-in 14:00</span><br><span style="font-size:0.75rem;color:var(--muted)">Junior Suite: 雙人床 + 沙發床（1 大 2 小）</span></div>
+            <div class="place-links">
+              <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Hotel+St.+Josef+Z%C3%BCrich" target="_blank">Hotel St. Josef</a>
+              <a class="transit-link" href="spots/guide_zurich.html#hotel-st-josef" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_zurich.html#hotel-st-josef" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Hotel+St.+Josef+Z%C3%BCrich" target="_blank">詳細資訊</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">交通</div>
+      <div class="info-val">
+        <div class="transport-block">
+          <div class="transport-step"><div class="transport-step-icon">✈️</div><div class="transport-step-text"><strong>13:20</strong> 降落 ZRH 機場</div></div>
+          <div class="transport-step"><div class="transport-step-icon">🚉</div><div class="transport-step-text">搭 <strong>S-Bahn S2 / S16</strong> → Zürich HB（約 10 分）
+            <div class="place-links">
+              <a class="sbb-link" href="https://www.sbb.ch/en/buying/pages/fahrplan/fahrplan.xhtml?von=Z%C3%BCrich+Flughafen&nach=Z%C3%BCrich+HB" target="_blank">SBB 查詢</a>
+              <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Zurich+Airport+ZRH" target="_blank">ZRH 機場</a>
+              <a class="info-link" href="https://www.google.com/maps/search/?api=1&query=Zurich+Airport+ZRH" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Zurich+Airport+ZRH" target="_blank">詳細資訊</a>
+            </div>
+          </div></div>
+          <div class="transport-step"><div class="transport-step-icon">🚶</div><div class="transport-step-text">Zürich HB 步行約 <strong>10 分鐘</strong>到飯店</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">景點</div>
+      <div class="info-val">
+        <div class="place-item">
+          <div class="place-icon">🏛</div>
+          <div>
+            <div class="place-name">蘇黎世老城區 Altstadt</div>
+            <div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Altstadt+Z%C3%BCrich" target="_blank">老城區</a>
+              <a class="transit-link" href="spots/guide_zurich.html#altstadt" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_zurich.html#altstadt" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Altstadt+Z%C3%BCrich" target="_blank">詳細資訊</a>
+            </div>
+          </div>
+        </div>
+        <div class="place-item">
+          <div class="place-icon">🌊</div>
+          <div>
+            <div class="place-name">利馬河畔 Limmatquai</div>
+            <div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Limmatquai+Z%C3%BCrich" target="_blank">利馬河畔</a>
+              <a class="transit-link" href="spots/guide_zurich.html#limmatquai" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_zurich.html#limmatquai" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Limmatquai+Z%C3%BCrich" target="_blank">詳細資訊</a>
+            </div>
+          </div>
+        </div>
+        <div class="place-item">
+          <div class="place-icon">🏞</div>
+          <div>
+            <div class="place-name">蘇黎世湖 Zürichsee</div>
+            <div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Z%C3%BCrichsee" target="_blank">蘇黎世湖</a>
+              <a class="transit-link" href="spots/guide_zurich.html#zurichsee" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_zurich.html#zurichsee" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Z%C3%BCrichsee" target="_blank">詳細資訊</a>
+            </div>
+          </div>
+        </div>
+        <div class="place-item">
+          <div class="place-icon">🛍</div>
+          <div>
+            <div class="place-name">班霍夫大道 Bahnhofstrasse</div>
+            <div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Bahnhofstrasse+Z%C3%BCrich" target="_blank">Bahnhofstrasse</a>
+              <a class="transit-link" href="spots/guide_zurich.html#bahnhofstrasse" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_zurich.html#bahnhofstrasse" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Bahnhofstrasse+Z%C3%BCrich" target="_blank">詳細資訊</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">餐飲</div>
+      <div class="info-val">
+        <div class="meal-item"><div class="meal-type">午</div><div class="meal-name">Zürich HB 周邊簡餐（NT$2,400）<div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Z%C3%BCrich+Hauptbahnhof" target="_blank">Zürich HB</a>
+              <a class="transit-link" href="spots/guide_zurich.html#hb" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_zurich.html#hb" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Z%C3%BCrich+Hauptbahnhof" target="_blank">詳細資訊</a>
+            </div></div></div>
+        <div class="meal-item"><div class="meal-type">晚</div><div class="meal-name"><a href="spots/guide_zurich.html#zeughauskeller" target="_blank">Zeughauskeller</a>（NT$3,000）<div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Zeughauskeller+Z%C3%BCrich" target="_blank">地圖</a>
+              <a class="transit-link" href="spots/guide_zurich.html#zeughauskeller" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_zurich.html#zeughauskeller" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Zeughauskeller+Z%C3%BCrich" target="_blank">詳細資訊</a>
+            </div></div></div>
+      </div>
+    </div>
+    <div class="info-row"><div class="info-label">備註</div><div class="info-val" style="font-size:0.78rem; color:var(--muted);">第一天放鬆、調時差</div></div>
+  </div>
+</div>
+
+<!-- 6/28 -->
+<div class="day-card">
+  <div class="day-header" onclick="toggle(this)">
+    <span class="day-badge">6/28 Sun</span>
+    <div><div class="day-title">🍫 Lindt 博物館・市區</div><div class="day-city">Zürich ｜ 續住</div></div>
+    <span class="day-chevron">▼</span>
+  </div>
+  <div class="day-body">
+    <div class="info-row">
+      <div class="info-label">景點</div>
+      <div class="info-val">
+        <div class="place-item">
+          <div class="place-icon">🍫</div>
+          <div>
+            <div class="place-name">Lindt Home of Chocolate <span class="badge badge-done">10:00 ✅已訂</span></div>
+            <div class="place-note">Schokoladenplatz 1, 8802 Kilchberg</div>
+            <div class="place-links">
+              <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Lindt+Home+of+Chocolate+Kilchberg" target="_blank">地圖</a>
+              <a class="sbb-link" href="https://www.sbb.ch/en/buying/pages/fahrplan/fahrplan.xhtml?von=Z%C3%BCrich+HB&nach=Kilchberg+ZH%2C+Schokoladenplatz" target="_blank">SBB 交通</a>
+              <a class="info-link" href="spots/lindt.html#info" target="_blank">地點資訊</a>
+              <a class="notion-link" href="spots/lindt.html" target="_blank">詳細資訊</a>
+            </div>
+          </div>
+        </div>
+        <div class="place-item">
+          <div class="place-icon">⛰</div>
+          <div>
+            <div class="place-name">Lindenhof 高地</div>
+            <div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Lindenhof+Z%C3%BCrich" target="_blank">地圖</a>
+              <a class="transit-link" href="spots/guide_zurich.html#lindenhof" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_zurich.html#lindenhof" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Lindenhof+Z%C3%BCrich" target="_blank">詳細資訊</a>
+            </div>
+          </div>
+        </div>
+        <div class="place-item">
+          <div class="place-icon">🕌</div>
+          <div>
+            <div class="place-name">大教堂 Grossmünster</div>
+            <div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Grossm%C3%BCnster+Z%C3%BCrich" target="_blank">地圖</a>
+              <a class="transit-link" href="spots/guide_zurich.html#grossmuenster" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_zurich.html#grossmuenster" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Grossm%C3%BCnster+Z%C3%BCrich" target="_blank">詳細資訊</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">交通</div>
+      <div class="info-val">
+        <div class="transport-block">
+          <div class="transport-step"><div class="transport-step-icon">🚋</div><div class="transport-step-text">Zürich HB 搭電車 <strong>7 號</strong> → Kilchberg（Lindt 博物館）
+            <div class="place-links"><a class="sbb-link" href="https://www.sbb.ch/en/buying/pages/fahrplan/fahrplan.xhtml?von=Z%C3%BCrich+HB&nach=Kilchberg+ZH%2C+Schokoladenplatz" target="_blank">SBB 查詢路線</a></div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">餐飲</div>
+      <div class="info-val">
+        <div class="meal-item"><div class="meal-type">午</div><div class="meal-name"><a href="spots/guide_zurich.html#sprungli" target="_blank">Sprüngli Café</a>（NT$2,400）<div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Caf%C3%A9+Spr%C3%BCngli+Z%C3%BCrich" target="_blank">地圖</a>
+              <a class="transit-link" href="spots/guide_zurich.html#sprungli" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_zurich.html#sprungli" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Caf%C3%A9+Spr%C3%BCngli+Z%C3%BCrich" target="_blank">詳細資訊</a>
+            </div></div></div>
+        <div class="meal-item"><div class="meal-type">晚</div><div class="meal-name"><a href="spots/guide_zurich.html#rosalys" target="_blank">Rosaly's</a> 19:00 <span class="badge badge-done">✅已訂</span>（NT$3,500）<div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Rosaly%27s+Restaurant+Z%C3%BCrich" target="_blank">地圖</a>
+              <a class="transit-link" href="spots/guide_zurich.html#rosalys" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_zurich.html#rosalys" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Rosaly%27s+Restaurant+Z%C3%BCrich" target="_blank">詳細資訊</a>
+            </div></div></div>
+      </div>
+    </div>
+    <div class="info-row"><div class="info-label">備註</div><div class="info-val" style="font-size:0.78rem; color:var(--muted);">晚餐後整理行李，明天早起搭火車往策馬特</div></div>
+  </div>
+</div>
+
+<!-- 6/29 -->
+<div class="day-card">
+  <div class="day-header" onclick="toggle(this)">
+    <span class="day-badge">6/29 Mon</span>
+    <div><div class="day-title">🚆 移動策馬特・Gornergrat</div><div class="day-city">Zermatt ｜ Tradition Julen Hotel</div></div>
+    <span class="day-chevron">▼</span>
+  </div>
+  <div class="day-body">
+    <div class="info-row">
+      <div class="info-label">住宿</div>
+      <div class="info-val">
+        <div class="place-name" style="font-size:0.83rem;">Tradition Julen Hotel <span class="badge badge-done">15:00 Check-in</span></div>
+        <div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Hotel+Julen+Zermatt" target="_blank">Julen Hotel</a>
+              <a class="transit-link" href="spots/zermatt.html#transport" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/zermatt.html#info" target="_blank">地點資訊</a>
+              <a class="notion-link" href="spots/zermatt.html" target="_blank">詳細資訊</a>
+            </div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">交通</div>
+      <div class="info-val">
+        <div class="transport-block">
+          <div class="transport-step"><div class="transport-step-icon">🕣</div><div class="transport-step-text"><strong>07:30</strong> 從 Hotel St. Josef 步行至 Zürich HB</div></div>
+          <div class="transport-step"><div class="transport-step-icon">🚆</div><div class="transport-step-text"><strong>08:02</strong> Zürich HB 出發 IC 808 <span class="badge badge-done">✅座位已訂 車廂5</span><br><span style="font-size:0.75rem;color:var(--muted)">CHIA-MAN 座16窗｜I-SHAN 座15窗｜I-WEN 座14走道</span>
+            <div class="place-links">
+              <a class="sbb-link" href="https://www.sbb.ch/en/buying/pages/fahrplan/fahrplan.xhtml?von=Z%C3%BCrich+HB&nach=Zermatt" target="_blank">SBB 查詢</a>
+              <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Z%C3%BCrich+Hauptbahnhof" target="_blank">Zürich HB</a>
+              <a class="info-link" href="spots/guide_zurich.html#hb" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Z%C3%BCrich+Hauptbahnhof" target="_blank">詳細資訊</a>
+            </div>
+          </div></div>
+          <div class="transport-step"><div class="transport-step-icon">🔄</div><div class="transport-step-text">Visp 轉車 → Zermatt（進 Visp 後<strong>右側</strong>窗景最佳）</div></div>
+          <div class="transport-step"><div class="transport-step-icon">🏔</div><div class="transport-step-text"><strong>約 11:30</strong> 抵達 Zermatt 車站
+            <div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Zermatt+Bahnhof" target="_blank">Zermatt 車站</a>
+              <a class="transit-link" href="spots/guide_zermatt.html#zermatt-station" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_zermatt.html#zermatt-station" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Zermatt+Bahnhof" target="_blank">詳細資訊</a>
+            </div>
+          </div></div>
+        </div>
+        <div class="tip">🪟 SBB 訂位圖：一圈方塊圍著中間長方形 = 桌子，選行進方向<strong>右側</strong>座位</div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">景點</div>
+      <div class="info-val">
+        <div class="place-item">
+          <div class="place-icon">🚞</div>
+          <div>
+            <div class="place-name">Gornergrat 登山火車</div>
+            <div class="place-note">視天氣決定下午班次</div>
+            <div class="place-links">
+              <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Gornergrat+Bahnhof+Zermatt" target="_blank">Gornergrat 車站</a>
+              <a class="transit-link" href="https://www.gornergrat.ch/en/tickets/priorityboarding" target="_blank">買票含Priority Boarding</a>
+              <a class="info-link" href="spots/matterhorn.html#info" target="_blank">地點資訊</a>
+              <a class="notion-link" href="spots/matterhorn.html" target="_blank">詳細資訊</a>
+            </div>
+          </div>
+        </div>
+        <div class="place-item">
+          <div class="place-icon">🏔</div>
+          <div>
+            <div class="place-name">馬特洪峰觀景 Matterhorn</div>
+            <div class="place-links">
+              <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Matterhorn+Zermatt" target="_blank">Matterhorn</a>
+              <a class="transit-link" href="https://www.gornergrat.ch/en/tickets/priorityboarding" target="_blank">購票交通</a>
+              <a class="info-link" href="spots/matterhorn.html#info" target="_blank">地點資訊</a>
+              <a class="notion-link" href="spots/matterhorn.html" target="_blank">詳細資訊</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">餐飲</div>
+      <div class="info-val">
+        <div class="meal-item"><div class="meal-type">午</div><div class="meal-name">火車上簡餐 / 超市（NT$2,700）<div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Coop+Zermatt" target="_blank">Zermatt Coop</a>
+              <a class="transit-link" href="spots/guide_zermatt.html#zermatt-coop" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_zermatt.html#zermatt-coop" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Coop+Zermatt" target="_blank">詳細資訊</a>
+            </div></div></div>
+        <div class="meal-item"><div class="meal-type">晚</div><div class="meal-name"><a href="spots/guide_zermatt.html#old-zermatt" target="_blank">Old Zermatt</a>（NT$3,800）<div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Old+Zermatt+Restaurant" target="_blank">地圖</a>
+              <a class="transit-link" href="spots/guide_zermatt.html#old-zermatt" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_zermatt.html#old-zermatt" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Old+Zermatt+Restaurant" target="_blank">詳細資訊</a>
+            </div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 6/30 -->
+<div class="day-card">
+  <div class="day-header" onclick="toggle(this)">
+    <span class="day-badge">6/30 Tue</span>
+    <div><div class="day-title">🏔 冰川天堂 Klein Matterhorn</div><div class="day-city">Zermatt ｜ 續住</div></div>
+    <span class="day-chevron">▼</span>
+  </div>
+  <div class="day-body">
+    <div class="info-row">
+      <div class="info-label">交通</div>
+      <div class="info-val">
+        <div class="transport-block">
+          <div class="transport-step"><div class="transport-step-icon">🕗</div><div class="transport-step-text"><strong>08:00</strong> 從 Julen Hotel 步行至纜車站</div></div>
+          <div class="transport-step"><div class="transport-step-icon">🚡</div><div class="transport-step-text">Zermatt → Furi → Trockener Steg → <strong>Klein Matterhorn</strong>
+            <div class="place-links">
+              <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Hotel+Julen+Zermatt" target="_blank">纜車站 Matterhorn glacier paradise</a>
+              <a class="transit-link" href="https://www.matterhornparadise.ch/en" target="_blank">官網購票</a>
+              <a class="info-link" href="spots/zermatt.html#info" target="_blank">地點資訊</a>
+              <a class="notion-link" href="spots/zermatt.html" target="_blank">詳細資訊</a>
+            </div>
+          </div></div>
+          <div class="transport-step"><div class="transport-step-icon">⛰</div><div class="transport-step-text"><strong>約 08:30</strong> 抵達山頂（3,883m）</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">景點</div>
+      <div class="info-val">
+        <div class="place-item">
+          <div class="place-icon">❄️</div>
+          <div>
+            <div class="place-name">冰川天堂 Matterhorn Glacier Paradise（3,883m）</div>
+            <div class="place-note">⚠️ 高海拔：保暖衣物、太陽眼鏡、防曬必備</div>
+            <div class="place-links">
+              <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Matterhorn+Glacier+Paradise" target="_blank">Klein Matterhorn</a>
+              <a class="transit-link" href="https://www.matterhornparadise.ch/en" target="_blank">官網購票</a>
+              <a class="info-link" href="spots/zermatt.html#info" target="_blank">地點資訊</a>
+              <a class="notion-link" href="spots/zermatt.html" target="_blank">Zermatt 攻略</a>
+            </div>
+          </div>
+        </div>
+        <div class="place-item">
+          <div class="place-icon">🛍</div>
+          <div>
+            <div class="place-name">Zermatt 小鎮散步・採購</div>
+            <div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Zermatt+Dorfzentrum" target="_blank">Zermatt 市中心</a>
+              <a class="transit-link" href="spots/guide_zermatt.html#zermatt-dorf" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_zermatt.html#zermatt-dorf" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Zermatt+Dorfzentrum" target="_blank">詳細資訊</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">餐飲</div>
+      <div class="info-val">
+        <div class="meal-item"><div class="meal-type">午</div><div class="meal-name">山上自助餐廳（NT$3,300）</div></div>
+        <div class="meal-item"><div class="meal-type">晚</div><div class="meal-name"><a href="spots/zermatt.html#info" target="_blank">Schäferstube</a> 18:00 <span class="badge badge-done">✅已訂</span>（極度熱門）<div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Hotel+Julen+Zermatt" target="_blank">地圖</a>
+              <a class="transit-link" href="spots/zermatt.html#transport" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/zermatt.html#info" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Sch%C3%A4ferstube+Zermatt" target="_blank">詳細資訊</a>
+            </div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 7/1 -->
+<div class="day-card">
+  <div class="day-header" onclick="toggle(this)">
+    <span class="day-badge">7/1 Wed</span>
+    <div><div class="day-title">🚆 移動日內瓦・英國花園</div><div class="day-city">Geneva ｜ Crowne Plaza Geneva</div></div>
+    <span class="day-chevron">▼</span>
+  </div>
+  <div class="day-body">
+    <div class="info-row">
+      <div class="info-label">住宿</div>
+      <div class="info-val">
+        <div class="place-name" style="font-size:0.83rem;">Crowne Plaza Geneva <span class="badge badge-done">15:00 Check-in</span><br><span style="font-size:0.75rem;color:var(--muted)">含早餐3人 CHF 737.75（含稅）</span></div>
+        <div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Crowne+Plaza+Geneva" target="_blank">Crowne Plaza Geneva</a>
+              <a class="transit-link" href="spots/guide_geneva.html#crowne-plaza" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_geneva.html#crowne-plaza" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Crowne+Plaza+Geneva" target="_blank">詳細資訊</a>
+            </div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">交通</div>
+      <div class="info-val">
+        <div class="transport-block">
+          <div class="transport-step"><div class="transport-step-icon">🕣</div><div class="transport-step-text"><strong>08:30</strong> 步行至 Zermatt 車站</div></div>
+          <div class="transport-step"><div class="transport-step-icon">🚆</div><div class="transport-step-text"><strong>09:13</strong> Zermatt → Visp → Geneva
+            <div class="place-links"><a class="sbb-link" href="https://www.sbb.ch/en/buying/pages/fahrplan/fahrplan.xhtml?von=Zermatt&nach=Gen%C3%A8ve" target="_blank">SBB 查詢</a></div>
+          </div></div>
+          <div class="transport-step"><div class="transport-step-icon">🏙</div><div class="transport-step-text"><strong>約 12:45</strong> 抵 Genève-Cornavin 車站
+            <div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Gare+de+Gen%C3%A8ve-Cornavin" target="_blank">日內瓦車站</a>
+              <a class="transit-link" href="spots/guide_geneva.html#gare-cornavin" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_geneva.html#gare-cornavin" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Gare+de+Gen%C3%A8ve-Cornavin" target="_blank">詳細資訊</a>
+            </div>
+          </div></div>
+          <div class="transport-step"><div class="transport-step-icon">🚌</div><div class="transport-step-text">搭公車或電車至 Crowne Plaza（近機場區）</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">景點</div>
+      <div class="info-val">
+        <div class="place-item">
+          <div class="place-icon">🌸</div>
+          <div>
+            <div class="place-name">英國花園 Jardin Anglais</div>
+            <div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Jardin+Anglais+Gen%C3%A8ve" target="_blank">地圖</a>
+              <a class="transit-link" href="spots/guide_geneva.html#jardin-anglais" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_geneva.html#jardin-anglais" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Jardin+Anglais+Gen%C3%A8ve" target="_blank">詳細資訊</a>
+            </div>
+          </div>
+        </div>
+        <div class="place-item">
+          <div class="place-icon">🌺</div>
+          <div>
+            <div class="place-name">花鐘 L'Horloge Fleurie</div>
+            <div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Jardin+Anglais+Gen%C3%A8ve" target="_blank">地圖</a>
+              <a class="transit-link" href="spots/guide_geneva.html#jardin-anglais" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_geneva.html#jardin-anglais" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Jardin+Anglais+Gen%C3%A8ve" target="_blank">詳細資訊</a>
+            </div>
+          </div>
+        </div>
+        <div class="place-item">
+          <div class="place-icon">💦</div>
+          <div>
+            <div class="place-name">大噴泉 Jet d'Eau（140m 高）</div>
+            <div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Jet+d%27Eau+Gen%C3%A8ve" target="_blank">地圖</a>
+              <a class="transit-link" href="spots/guide_geneva.html#jet-deau" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_geneva.html#jet-deau" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Jet+d%27Eau+Gen%C3%A8ve" target="_blank">詳細資訊</a>
+            </div>
+          </div>
+        </div>
+        <div class="place-item">
+          <div class="place-icon">🏞</div>
+          <div>
+            <div class="place-name">日內瓦湖 Lac Léman</div>
+            <div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Lac+L%C3%A9man+Gen%C3%A8ve" target="_blank">地圖</a>
+              <a class="transit-link" href="spots/guide_geneva.html#lac-leman" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_geneva.html#lac-leman" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Lac+L%C3%A9man+Gen%C3%A8ve" target="_blank">詳細資訊</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">餐飲</div>
+      <div class="info-val">
+        <div class="meal-item"><div class="meal-type">午</div><div class="meal-name"><a href="spots/guide_geneva.html#les-brasseurs" target="_blank">Les Brasseurs</a>（NT$3,000）<div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Les+Brasseurs+Gen%C3%A8ve" target="_blank">地圖</a>
+              <a class="transit-link" href="spots/guide_geneva.html#les-brasseurs" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_geneva.html#les-brasseurs" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Les+Brasseurs+Gen%C3%A8ve" target="_blank">詳細資訊</a>
+            </div></div></div>
+        <div class="meal-item"><div class="meal-type">晚</div><div class="meal-name"><a href="spots/guide_geneva.html#la-buvette" target="_blank">La Buvette des Bains</a>（NT$3,300）<div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=La+Buvette+des+Bains+Gen%C3%A8ve" target="_blank">地圖</a>
+              <a class="transit-link" href="spots/guide_geneva.html#la-buvette" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_geneva.html#la-buvette" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=La+Buvette+des+Bains+Gen%C3%A8ve" target="_blank">詳細資訊</a>
+            </div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 7/2 -->
+<div class="day-card">
+  <div class="day-header" onclick="toggle(this)">
+    <span class="day-badge">7/2 Thu</span>
+    <div><div class="day-title">🌐 聯合國導覽・紅十字博物館</div><div class="day-city">Geneva ｜ 續住</div></div>
+    <span class="day-chevron">▼</span>
+  </div>
+  <div class="day-body">
+    <div class="info-row">
+      <div class="info-label">交通</div>
+      <div class="info-val">
+        <div class="transport-block">
+          <div class="transport-step"><div class="transport-step-icon">🕣</div><div class="transport-step-text"><strong>08:30</strong> 從 Crowne Plaza 出發</div></div>
+          <div class="transport-step"><div class="transport-step-icon">🚌</div><div class="transport-step-text">搭 <strong>Bus 10 / 28</strong> → 萬國宮 Palais des Nations
+            <div class="place-links">
+              <a class="transit-link" href="spots/un_geneva.html#info" target="_blank">Bus 路線</a>
+              <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=ICRC+Museum+Gen%C3%A8ve" target="_blank">聯合國</a>
+              <a class="info-link" href="spots/un_geneva.html#info" target="_blank">地點資訊</a>
+              <a class="notion-link" href="spots/un_geneva.html" target="_blank">詳細資訊</a>
+            </div>
+          </div></div>
+          <div class="transport-step"><div class="transport-step-icon">🚶</div><div class="transport-step-text">步行至 ICRC 紅十字博物館（距聯合國約 700m）
+            <div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=ICRC+Museum+Gen%C3%A8ve" target="_blank">紅十字博物館</a>
+              <a class="transit-link" href="spots/un_geneva.html#transport" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/un_geneva.html#info" target="_blank">地點資訊</a>
+              <a class="notion-link" href="spots/un_geneva.html" target="_blank">詳細資訊</a>
+            </div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">景點</div>
+      <div class="info-val">
+        <div class="place-item">
+          <div class="place-icon">🌐</div>
+          <div>
+            <div class="place-name">聯合國歐洲總部 10:00 <span class="badge badge-done">✅已預約（3人）</span></div>
+            <div class="place-note">⚠️ 必須攜帶護照入場</div>
+            <div class="place-links">
+              <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=ICRC+Museum+Gen%C3%A8ve" target="_blank">Palais des Nations</a>
+              <a class="transit-link" href="https://visit.un.org/content/visit-un-geneva" target="_blank">官方預約</a>
+              <a class="info-link" href="spots/un_geneva.html#info" target="_blank">地點資訊</a>
+              <a class="notion-link" href="spots/un_geneva.html" target="_blank">詳細資訊</a>
+            </div>
+          </div>
+        </div>
+        <div class="place-item">
+          <div class="place-icon">🔴</div>
+          <div>
+            <div class="place-name">ICRC 紅十字國際委員會博物館</div>
+            <div class="place-links">
+              <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=ICRC+Museum+Gen%C3%A8ve" target="_blank">地圖</a>
+              <a class="transit-link" href="https://www.icrc.org/en/icrc-museum" target="_blank">博物館官網</a>
+              <a class="info-link" href="spots/un_geneva.html#info" target="_blank">地點資訊</a>
+              <a class="notion-link" href="spots/un_geneva.html" target="_blank">詳細資訊</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">餐飲</div>
+      <div class="info-val">
+        <div class="meal-item"><div class="meal-type">午</div><div class="meal-name"><a href="spots/guide_geneva.html#manor-food" target="_blank">Manor Food Hall</a>（NT$2,700）<div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Manor+Food+Hall+Gen%C3%A8ve" target="_blank">地圖</a>
+              <a class="transit-link" href="spots/guide_geneva.html#manor-food" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_geneva.html#manor-food" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Manor+Food+Hall+Gen%C3%A8ve" target="_blank">詳細資訊</a>
+            </div></div></div>
+        <div class="meal-item"><div class="meal-type">晚</div><div class="meal-name"><a href="spots/guide_geneva.html#les-armures" target="_blank">Les Armures</a> 19:00 <span class="badge badge-done">✅已訂</span>（起司鍋）<div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Les+Armures+restaurant+Gen%C3%A8ve" target="_blank">地圖</a>
+              <a class="transit-link" href="spots/guide_geneva.html#les-armures" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_geneva.html#les-armures" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Les+Armures+restaurant+Gen%C3%A8ve" target="_blank">詳細資訊</a>
+            </div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 7/3 -->
+<div class="day-card">
+  <div class="day-header" onclick="toggle(this)">
+    <span class="day-badge">7/3 Fri</span>
+    <div><div class="day-title">⛵ 日內瓦湖遊船・購物</div><div class="day-city">Geneva ｜ 續住</div></div>
+    <span class="day-chevron">▼</span>
+  </div>
+  <div class="day-body">
+    <div class="info-row">
+      <div class="info-label">交通</div>
+      <div class="info-val">
+        <div class="transport-block">
+          <div class="transport-step"><div class="transport-step-icon">🕤</div><div class="transport-step-text"><strong>09:45</strong> 從飯店出發前往碼頭</div></div>
+          <div class="transport-step"><div class="transport-step-icon">⛵</div><div class="transport-step-text"><strong>10:15</strong> 乘坐遊船（約 1 小時）
+            <div class="place-links">
+              <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Quai+du+Mont-Blanc+Gen%C3%A8ve" target="_blank">日內瓦碼頭 Quai du Mont-Blanc</a>
+              <a class="transit-link" href="https://www.cgn.ch/en" target="_blank">CGN 遊船官網</a>
+              <a class="info-link" href="spots/guide_geneva.html#quai-mont-blanc" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Quai+du+Mont-Blanc+Gen%C3%A8ve" target="_blank">詳細資訊</a>
+            </div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">景點</div>
+      <div class="info-val">
+        <div class="place-item">
+          <div class="place-icon">⛵</div>
+          <div>
+            <div class="place-name">日內瓦湖遊船</div>
+            <div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Quai+du+Mont-Blanc+Gen%C3%A8ve" target="_blank">碼頭地圖</a>
+              <a class="transit-link" href="spots/guide_geneva.html#quai-mont-blanc" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_geneva.html#quai-mont-blanc" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Quai+du+Mont-Blanc+Gen%C3%A8ve" target="_blank">詳細資訊</a>
+            </div>
+          </div>
+        </div>
+        <div class="place-item">
+          <div class="place-icon">🛍</div>
+          <div>
+            <div class="place-name">Rue du Rhône 名品街</div>
+            <div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Rue+du+Rh%C3%B4ne+Gen%C3%A8ve" target="_blank">地圖</a>
+              <a class="transit-link" href="spots/guide_geneva.html#rue-rhone" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_geneva.html#rue-rhone" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Rue+du+Rh%C3%B4ne+Gen%C3%A8ve" target="_blank">詳細資訊</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">餐飲</div>
+      <div class="info-val">
+        <div class="meal-item"><div class="meal-type">午</div><div class="meal-name">湖畔咖啡館（NT$3,000）</div></div>
+        <div class="meal-item"><div class="meal-type">晚</div><div class="meal-name"><a href="spots/guide_geneva.html#cafe-du-centre" target="_blank">Café du Centre</a>（海鮮 NT$4,455）<div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Caf%C3%A9+du+Centre+Gen%C3%A8ve" target="_blank">地圖</a>
+              <a class="transit-link" href="spots/guide_geneva.html#cafe-du-centre" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_geneva.html#cafe-du-centre" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Caf%C3%A9+du+Centre+Gen%C3%A8ve" target="_blank">詳細資訊</a>
+            </div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 7/4 -->
+<div class="day-card">
+  <div class="day-header" onclick="toggle(this)">
+    <span class="day-badge">7/4 Sat</span>
+    <div><div class="day-title">🚆 移動琉森・卡貝爾橋</div><div class="day-city">Lucerne ｜ Boutique Hotel KARL</div></div>
+    <span class="day-chevron">▼</span>
+  </div>
+  <div class="day-body">
+    <div class="info-row">
+      <div class="info-label">住宿</div>
+      <div class="info-val">
+        <div class="place-name" style="font-size:0.83rem;">Boutique Hotel KARL <span class="badge badge-done">15:00 Check-in</span><br><span style="font-size:0.75rem;color:var(--muted)">⚠️ 早餐 07:00–10:00，<strong>無早餐盒</strong>可帶走（需提前吃完再出發）</span></div>
+        <div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Boutique+Hotel+Karl+Luzern" target="_blank">Hotel KARL</a>
+              <a class="transit-link" href="spots/guide_lucerne.html#hotel-karl" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_lucerne.html#hotel-karl" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Boutique+Hotel+Karl+Luzern" target="_blank">詳細資訊</a>
+            </div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">交通</div>
+      <div class="info-val">
+        <div class="transport-block">
+          <div class="transport-step"><div class="transport-step-icon">🕤</div><div class="transport-step-text"><strong>09:15</strong> 從 Genève-Cornavin 車站出發</div></div>
+          <div class="transport-step"><div class="transport-step-icon">🚆</div><div class="transport-step-text">經 Lausanne 或 Bern 轉乘 → Lucerne
+            <div class="place-links"><a class="sbb-link" href="https://www.sbb.ch/en/buying/pages/fahrplan/fahrplan.xhtml?von=Gen%C3%A8ve&nach=Luzern" target="_blank">SBB 查詢</a></div>
+          </div></div>
+          <div class="transport-step"><div class="transport-step-icon">🏙</div><div class="transport-step-text"><strong>約 13:00</strong> 抵達 Luzern 車站
+            <div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Luzern+Bahnhof" target="_blank">琉森車站</a>
+              <a class="transit-link" href="spots/guide_lucerne.html#luzern-hb" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_lucerne.html#luzern-hb" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Luzern+Bahnhof" target="_blank">詳細資訊</a>
+            </div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">景點</div>
+      <div class="info-val">
+        <div class="place-item">
+          <div class="place-icon">🌉</div>
+          <div>
+            <div class="place-name">卡貝爾橋 Kapellbrücke（歐洲最古老木橋）</div>
+            <div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Kapellbr%C3%BCcke+Luzern" target="_blank">地圖</a>
+              <a class="transit-link" href="spots/guide_lucerne.html#kapellbrucke" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_lucerne.html#kapellbrucke" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Kapellbr%C3%BCcke+Luzern" target="_blank">詳細資訊</a>
+            </div>
+          </div>
+        </div>
+        <div class="place-item">
+          <div class="place-icon">🦁</div>
+          <div>
+            <div class="place-name">獅子像 Löwendenkmal</div>
+            <div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=L%C3%B6wendenkmal+Luzern" target="_blank">地圖</a>
+              <a class="transit-link" href="spots/guide_lucerne.html#lowendenkmal" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_lucerne.html#lowendenkmal" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=L%C3%B6wendenkmal+Luzern" target="_blank">詳細資訊</a>
+            </div>
+          </div>
+        </div>
+        <div class="place-item">
+          <div class="place-icon">🏘</div>
+          <div>
+            <div class="place-name">琉森舊城區 Altstadt</div>
+            <div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Altstadt+Luzern" target="_blank">地圖</a>
+              <a class="transit-link" href="spots/guide_lucerne.html#altstadt-luzern" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_lucerne.html#altstadt-luzern" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Altstadt+Luzern" target="_blank">詳細資訊</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">餐飲</div>
+      <div class="info-val">
+        <div class="meal-item"><div class="meal-type">午</div><div class="meal-name">火車上簡餐 / 超市（NT$3,000）</div></div>
+        <div class="meal-item"><div class="meal-type">晚</div><div class="meal-name"><a href="spots/guide_lucerne.html#lucide-kkl" target="_blank">Lucide KKL</a> 19:00 <span class="badge badge-done">✅已訂</span>（米其林・略正式著裝）<div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Lucide+Restaurant+KKL+Luzern" target="_blank">地圖</a>
+              <a class="transit-link" href="spots/guide_lucerne.html#lucide-kkl" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_lucerne.html#lucide-kkl" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Lucide+Restaurant+KKL+Luzern" target="_blank">詳細資訊</a>
+            </div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 7/5 -->
+<div class="day-card">
+  <div class="day-header" onclick="toggle(this)">
+    <span class="day-badge">7/5 Sun</span>
+    <div><div class="day-title">🏔 少女峰 Jungfraujoch 一日遊</div><div class="day-city">Lucerne 出發 ｜ 當日來回</div></div>
+    <span class="day-chevron">▼</span>
+  </div>
+  <div class="day-body">
+    <div class="warnbox">
+      <div class="warnbox-title">⚠️ 7/5 或 7/6 擇一上山</div>
+      <div style="font-size:0.78rem;">兩天座位均已訂。決定後<strong>立即取消另一天</strong>申請退款 → jungfrau.ch/refund-request</div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">交通</div>
+      <div class="info-val">
+        <div class="transport-block">
+          <div class="transport-step"><div class="transport-step-icon">🕠</div><div class="transport-step-text"><strong>05:45</strong> 從飯店出發步行至琉森車站</div></div>
+          <div class="transport-step"><div class="transport-step-icon">🚆</div><div class="transport-step-text"><strong>06:06</strong> Luzern–Interlaken Express（坐<strong>右側</strong>，龍疆湖最美）
+            <div class="place-links">
+              <a class="sbb-link" href="https://www.sbb.ch/en/buying/pages/fahrplan/fahrplan.xhtml?von=Luzern&nach=Interlaken+Ost" target="_blank">SBB 查詢</a>
+              <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Luzern+Bahnhof" target="_blank">琉森車站</a>
+              <a class="info-link" href="spots/guide_lucerne.html#luzern-hb" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Luzern+Bahnhof" target="_blank">詳細資訊</a>
+            </div>
+          </div></div>
+          <div class="transport-step"><div class="transport-step-icon">🔄</div><div class="transport-step-text"><strong>07:56</strong> 抵 Interlaken Ost → 快速換月台（8 分鐘）→ BOB 火車往 <strong>Grindelwald Terminal</strong>（選 Sector B 車廂）
+            <div class="place-links">
+              <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Grindelwald+Terminal+Eiger+Express" target="_blank">Interlaken Ost</a>
+              <a class="transit-link" href="spots/jungfrau.html#transport" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/jungfrau.html#info" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Interlaken+Ost+Bahnhof" target="_blank">詳細資訊</a>
+            </div>
+          </div></div>
+          <div class="transport-step"><div class="transport-step-icon">🚡</div><div class="transport-step-text"><strong>Grindelwald Terminal</strong> → <strong>Eiger Express</strong> 纜車 → Eigergletscher
+            <div class="place-links">
+              <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Grindelwald+Terminal+Eiger+Express" target="_blank">Grindelwald Terminal</a>
+              <a class="transit-link" href="https://www.jungfrau.ch/en-gb/eiger-express/" target="_blank">Eiger Express 資訊</a>
+              <a class="info-link" href="spots/jungfrau.html#info" target="_blank">地點資訊</a>
+              <a class="notion-link" href="spots/jungfrau.html" target="_blank">詳細資訊</a>
+            </div>
+          </div></div>
+          <div class="transport-step"><div class="transport-step-icon">🚞</div><div class="transport-step-text">Eigergletscher → 少女峰登山火車 → Jungfraujoch <span class="badge badge-done">✅09:45 座位已訂</span>
+            <div class="place-links">
+              <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Grindelwald+Terminal+Eiger+Express" target="_blank">少女峰頂</a>
+              <a class="transit-link" href="spots/jungfrau.html#transport" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/jungfrau.html#info" target="_blank">地點資訊</a>
+              <a class="notion-link" href="spots/jungfrau.html" target="_blank">詳細資訊</a>
+            </div>
+          </div></div>
+        </div>
+        <div class="tip">📍 <strong>下山路線（經典環線）</strong>：少女峰 <span class="badge badge-done">✅14:17 座位</span> → Eigergletscher → Wengernalpbahn（黃色小火車）→ Kleine Scheidegg → Wengen（最佳明信片角度）→ Lauterbrunnen → Interlaken Ost → Lucerne</div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">景點</div>
+      <div class="info-val">
+        <div class="place-item">
+          <div class="place-icon">🔭</div>
+          <div>
+            <div class="place-name">斯芬克斯觀景台 Sphinx Terrace（3,571m）</div>
+            <div class="place-note">最先去！人潮 10:30 後才大量湧入</div>
+            <div class="place-links">
+              <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Grindelwald+Terminal+Eiger+Express" target="_blank">少女峰頂</a>
+              <a class="sbb-link" href="https://www.sbb.ch/en/buying/pages/fahrplan/fahrplan.xhtml?von=Luzern&nach=Interlaken+Ost" target="_blank">SBB 交通</a>
+              <a class="info-link" href="spots/jungfrau.html#info" target="_blank">地點資訊</a>
+              <a class="notion-link" href="spots/jungfrau.html" target="_blank">少女峰完整攻略</a>
+            </div>
+          </div>
+        </div>
+        <div class="place-item">
+          <div class="place-icon">❄️</div>
+          <div>
+            <div class="place-name">冰宮 Ice Palace</div>
+            <div class="place-note">地板滑，請慢行</div>
+          </div>
+        </div>
+        <div class="place-item">
+          <div class="place-icon">🌄</div>
+          <div>
+            <div class="place-name">Wengen 下山路段（明信片角度）</div>
+            <div class="place-note">俯瞰 Lauterbrunnen U 型谷，坐右側最美</div>
+            <div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Wengen+Switzerland" target="_blank">Wengen</a>
+              <a class="transit-link" href="spots/guide_lucerne.html#wengen" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_lucerne.html#wengen" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Wengen+Switzerland" target="_blank">詳細資訊</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">注意</div>
+      <div class="info-val" style="font-size:0.78rem;">☀️ 最佳光線 08:00–10:00 ｜ 紫外線強：墨鏡、防曬、保暖必備 ｜ 高山症：慢行、多喝水</div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">餐飲</div>
+      <div class="info-val">
+        <div class="meal-item"><div class="meal-type">午</div><div class="meal-name">Restaurant Crystal 12:00 <span class="badge badge-done">✅已訂</span>（山頂，11:00 錯峰用餐最佳）<div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Grindelwald+Terminal+Eiger+Express" target="_blank">少女峰頂</a>
+              <a class="transit-link" href="spots/jungfrau.html#transport" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/jungfrau.html#info" target="_blank">地點資訊</a>
+              <a class="notion-link" href="spots/jungfrau.html" target="_blank">詳細資訊</a>
+            </div></div></div>
+        <div class="meal-item"><div class="meal-type">晚</div><div class="meal-name"><a href="spots/guide_lucerne.html#laterne" target="_blank">Restaurant Laterne</a>（NT$3,600）<div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Restaurant+Laterne+Luzern" target="_blank">地圖</a>
+              <a class="transit-link" href="spots/guide_lucerne.html#laterne" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_lucerne.html#laterne" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Restaurant+Laterne+Luzern" target="_blank">詳細資訊</a>
+            </div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 7/6 -->
+<div class="day-card">
+  <div class="day-header" onclick="toggle(this)">
+    <span class="day-badge">7/6 Mon</span>
+    <div><div class="day-title">🚡 皮拉圖斯山 Golden Round Trip</div><div class="day-city">Lucerne ｜ 續住</div></div>
+    <span class="day-chevron">▼</span>
+  </div>
+  <div class="day-body">
+    <div class="info-row">
+      <div class="info-label">交通</div>
+      <div class="info-val">
+        <div class="transport-block">
+          <div class="transport-step"><div class="transport-step-icon">🕤</div><div class="transport-step-text"><strong>09:10</strong> 步行至湖邊 <strong>Pier 2（Nr. 1 碼頭）</strong>
+            <div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Schiffsstation+Luzern+Pier+2" target="_blank">琉森湖邊碼頭 Pier 2</a>
+              <a class="transit-link" href="spots/pilatus.html#transport" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/pilatus.html#info" target="_blank">地點資訊</a>
+              <a class="notion-link" href="spots/pilatus.html" target="_blank">詳細資訊</a>
+            </div>
+          </div></div>
+          <div class="transport-step"><div class="transport-step-icon">🚢</div><div class="transport-step-text"><strong>09:38</strong> 湖船前往 <strong>Alpnachstad</strong>（約 1 小時多）
+            <div class="place-links">
+              <a class="transit-link" href="https://www.pilatus.ch/en/discover/golden-round-trip/" target="_blank">Golden Round Trip 官網</a>
+            </div>
+          </div></div>
+          <div class="transport-step"><div class="transport-step-icon">🚞</div><div class="transport-step-text"><strong>11:05</strong> 搭齒軌登山列車 → Pilatus Kulm 山頂（世界最陡齒軌火車）
+            <div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Schiffsstation+Luzern+Pier+2" target="_blank">Pilatus Kulm</a>
+              <a class="transit-link" href="spots/pilatus.html#transport" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/pilatus.html#info" target="_blank">地點資訊</a>
+              <a class="notion-link" href="spots/pilatus.html" target="_blank">詳細資訊</a>
+            </div>
+          </div></div>
+          <div class="transport-step"><div class="transport-step-icon">🚠</div><div class="transport-step-text">下午 → 空中纜車 + 纜椅下山 → Kriens → 公車回 Lucerne
+            <div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Schiffsstation+Luzern+Pier+2" target="_blank">Kriens 纜椅站</a>
+              <a class="transit-link" href="spots/pilatus.html#transport" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/pilatus.html#info" target="_blank">地點資訊</a>
+              <a class="notion-link" href="spots/pilatus.html" target="_blank">詳細資訊</a>
+            </div>
+          </div></div>
+        </div>
+        <div class="tip">⏱ 行程約 5–6 小時 ｜ 務必帶防寒外套與雨具</div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">景點</div>
+      <div class="info-val">
+        <div class="place-item">
+          <div class="place-icon">🏔</div>
+          <div>
+            <div class="place-name">皮拉圖斯山頂 Pilatus Kulm（2,132m）</div>
+            <div class="place-links">
+              <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Schiffsstation+Luzern+Pier+2" target="_blank">山頂地圖</a>
+              <a class="transit-link" href="https://www.pilatus.ch/en/discover/golden-round-trip/" target="_blank">購票交通</a>
+              <a class="info-link" href="spots/pilatus.html#info" target="_blank">地點資訊</a>
+              <a class="notion-link" href="spots/pilatus.html" target="_blank">詳細資訊</a>
+            </div>
+          </div>
+        </div>
+        <div class="place-item">
+          <div class="place-icon">🚢</div>
+          <div>
+            <div class="place-name">盧塞恩湖船 Lake Lucerne Navigation</div>
+            <div class="place-links">
+              <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Schiffsstation+Luzern+Pier+2" target="_blank">碼頭地圖</a>
+              <a class="transit-link" href="https://www.lakelucerne.ch/en/" target="_blank">湖船官網</a>
+              <a class="info-link" href="spots/pilatus.html#info" target="_blank">地點資訊</a>
+              <a class="notion-link" href="spots/pilatus.html" target="_blank">詳細資訊</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">餐飲</div>
+      <div class="info-val">
+        <div class="meal-item"><div class="meal-type">午</div><div class="meal-name">Pilatus 山上餐廳（NT$3,600）</div></div>
+        <div class="meal-item"><div class="meal-type">晚</div><div class="meal-name"><a href="spots/guide_lucerne.html#seebistro" target="_blank">Seebistro Luz</a>（NT$3,800）<div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Seebistro+Luz+Luzern" target="_blank">地圖</a>
+              <a class="transit-link" href="spots/guide_lucerne.html#seebistro" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_lucerne.html#seebistro" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Seebistro+Luz+Luzern" target="_blank">詳細資訊</a>
+            </div></div></div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">🆚 替代</div>
+      <div class="info-val">
+        <div class="tip">⚠️ 以下兩個行程擇一，確定後請取消另一天</div>
+        <div class="compare-wrap">
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th>比較項目</th>
+                <th>🏔️ 皮拉圖斯 Golden Round Trip</th>
+                <th>⚡ 菲斯特 First 冒險</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>旅遊風格</td><td>歷史、交通工藝與靜態大景</td><td>熱血戶外、極限刺激與冒險</td></tr>
+              <tr><td>景觀亮點</td><td>俯瞰琉森湖全景，體驗世界最陡齒軌鐵道奇蹟</td><td>懸空峭壁「懸崖步道」，正對艾格峰冰川大面</td></tr>
+              <tr><td>13/15歲體驗</td><td>🚌 偏靜態：坐不同交通工具拍照，互動性較低</td><td>🏎️ 瘋狂尖叫：親自操控山地卡丁車甩尾、玩高空飛索！</td></tr>
+              <tr><td>交通體力</td><td>🛌 極輕鬆：就在琉森旁，單程不超過 1.5 小時</td><td>🚂 長途拉車：來回火車約 4 小時，體力消耗較大</td></tr>
+              <tr><td>拍照亮點</td><td>遊船波光、紅色小火車爬坡復古感</td><td>iPhone 動作模式錄卡丁車衝刺、飛索第一視角</td></tr>
+              <tr><td>票價預算</td><td>💰 極省：交通含在 STP + Family Card 內</td><td>💸 較高：卡丁車、飛索須現場另購活動票</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="place-item" style="margin-top:0.7rem;">
+          <div class="place-icon">⚡</div>
+          <div>
+            <div class="place-name">格林德瓦 菲斯特 First（2,168m）</div>
+            <div class="place-desc" style="font-size:0.77rem;color:#666;margin:0.2rem 0 0.35rem;">高空飛索 · 山地卡丁車 · 懸崖步道 · Bachalpsee 高山湖</div>
+            <div class="place-links">
+              <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=First+cable+car+Grindelwald+Switzerland" target="_blank">地圖</a>
+              <a class="transit-link" href="spots/first.html#transport" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/first.html#info" target="_blank">地點資訊</a>
+              <a class="notion-link" href="spots/first.html" target="_blank">詳細資訊</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 7/7 -->
+<div class="day-card">
+  <div class="day-header" onclick="toggle(this)">
+    <span class="day-badge">7/7 Tue</span>
+    <div><div class="day-title">🛍 最後採買・蘇黎世・登機</div><div class="day-city">Lucerne → Zürich → EK088 15:30</div></div>
+    <span class="day-chevron">▼</span>
+  </div>
+  <div class="day-body">
+    <div class="info-row"><div class="info-label">退房</div><div class="info-val">Boutique Hotel KARL <span class="badge badge-warn">09:00 退房</span><br><span style="font-size:0.75rem;color:var(--muted)">Triple Room CHF 960.60 含早餐（付退房時付）</span></div></div>
+    <div class="info-row">
+      <div class="info-label">交通</div>
+      <div class="info-val">
+        <div class="transport-block">
+          <div class="transport-step"><div class="transport-step-icon">🕙</div><div class="transport-step-text"><strong>09:00–10:00</strong> 退房，行李寄車站</div></div>
+          <div class="transport-step"><div class="transport-step-icon">🛍</div><div class="transport-step-text"><strong>10:00–10:30</strong> Bachmann 採買（⚠️ 時間縮短，提前購買）
+            <div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Confiserie+Bachmann+Luzern" target="_blank">Bachmann 琉森</a>
+              <a class="transit-link" href="spots/guide_lucerne.html#bachmann" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_lucerne.html#bachmann" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Confiserie+Bachmann+Luzern" target="_blank">詳細資訊</a>
+            </div>
+          </div></div>
+          <div class="transport-step"><div class="transport-step-icon">🚆</div><div class="transport-step-text"><strong>10:30</strong> 搭火車 Lucerne → Zürich HB
+            <div class="place-links"><a class="sbb-link" href="https://www.sbb.ch/en/buying/pages/fahrplan/fahrplan.xhtml?von=Luzern&nach=Z%C3%BCrich+HB" target="_blank">SBB 查詢</a></div>
+          </div></div>
+          <div class="transport-step"><div class="transport-step-icon">🛒</div><div class="transport-step-text"><strong>11:30–12:30</strong> ShopVille 地下街（時間縮短）、Läderach 巧克力
+            <div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=ShopVille+Z%C3%BCrich+Hauptbahnhof" target="_blank">ShopVille Zürich HB</a>
+              <a class="transit-link" href="spots/guide_zurich.html#shopville" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_zurich.html#shopville" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=ShopVille+Z%C3%BCrich+Hauptbahnhof" target="_blank">詳細資訊</a>
+            </div>
+          </div></div>
+          <div class="transport-step"><div class="transport-step-icon">✈️</div><div class="transport-step-text"><strong>13:30</strong> 搭火車至 ZRH 機場辦退稅（⚠️ 15:30 起飛需提早）
+            <div class="place-links"><a class="sbb-link" href="https://www.sbb.ch/en/buying/pages/fahrplan/fahrplan.xhtml?von=Z%C3%BCrich+HB&nach=Z%C3%BCrich+Flughafen" target="_blank">SBB 查詢</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Zurich+Airport+ZRH" target="_blank">ZRH 機場</a>
+              <a class="info-link" href="https://www.google.com/maps/search/?api=1&query=Zurich+Airport+ZRH" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Zurich+Airport+ZRH" target="_blank">詳細資訊</a>
+            </div>
+          </div></div>
+          <div class="transport-step"><div class="transport-step-icon">🛫</div><div class="transport-step-text"><strong>15:30</strong> EK088 ZRH → 杜拜 → TPE 起飛</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">採買</div>
+      <div class="info-val">
+        <div class="place-item">
+          <div class="place-icon">🍫</div>
+          <div>
+            <div class="place-name">Bachmann 限定巧克力（琉森）</div>
+            <div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Confiserie+Bachmann+Luzern" target="_blank">地圖</a>
+              <a class="transit-link" href="spots/guide_lucerne.html#bachmann" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_lucerne.html#bachmann" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Confiserie+Bachmann+Luzern" target="_blank">詳細資訊</a>
+            </div>
+          </div>
+        </div>
+        <div class="place-item">
+          <div class="place-icon">🗡</div>
+          <div>
+            <div class="place-name">瑞士刀（琉森）</div>
+            <div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Swiss+knife+shop+Luzern" target="_blank">Swiss knife shop 琉森</a>
+              <a class="transit-link" href="spots/guide_lucerne.html#swiss-knife" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_lucerne.html#swiss-knife" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=Swiss+knife+shop+Luzern" target="_blank">詳細資訊</a>
+            </div>
+          </div>
+        </div>
+        <div class="place-item">
+          <div class="place-icon">🍫</div>
+          <div>
+            <div class="place-name">Läderach 巧克力（蘇黎世）</div>
+            <div class="place-links"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=L%C3%A4derach+Z%C3%BCrich+Hauptbahnhof" target="_blank">Läderach Zürich HB</a>
+              <a class="transit-link" href="spots/guide_zurich.html#laderach" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/guide_zurich.html#laderach" target="_blank">地點資訊</a>
+              <a class="notion-link" href="https://www.google.com/search?q=L%C3%A4derach+Z%C3%BCrich+Hauptbahnhof" target="_blank">詳細資訊</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">餐飲</div>
+      <div class="info-val">
+        <div class="meal-item"><div class="meal-type">午</div><div class="meal-name">Bachmann（NT$2,400）</div></div>
+        <div class="meal-item"><div class="meal-type">晚</div><div class="meal-name">機場簡餐（NT$3,000）</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 7/8 -->
+<div class="day-card">
+  <div class="day-header" onclick="toggle(this)">
+    <span class="day-badge">7/8 Wed</span>
+    <div><div class="day-title">✈️ 抵達台灣</div><div class="day-city">桃園機場 約 16:15</div></div>
+    <span class="day-chevron">▼</span>
+  </div>
+  <div class="day-body">
+    <div class="info-row"><div class="info-label">降落</div><div class="info-val">約 16:15 抵達 TPE（以航空公司公告為準）</div></div>
+    <div class="info-row"><div class="info-label">備註</div><div class="info-val">領取行李、通關，結束 12 天瑞士旅程 🎉</div></div>
+  </div>
+</div>
+
+</div><!-- end itinerary -->
+
+<!-- ══════════ 訂單 ══════════ -->
+<div class="section" id="bookings">
+  <div class="sec-title">已完成</div>
+  <div class="card"><div class="card-bd">
+    <div class="br"><div><div class="br-date">2025/12/27</div><span class="badge badge-done">✅</span></div><div><div class="br-name">Swiss Travel Pass 15天</div><div class="br-note">6/27 起使用 ｜ Klook 購買</div></div></div>
+    <div class="br"><div><div class="br-date">6/29 08:02</div><span class="badge badge-done">✅</span></div><div><div class="br-name">蘇黎世 → 策馬特 座位</div><div class="br-note">IC 808 車廂5 ｜ CHIA-MAN 座16窗、I-SHAN 座15窗、I-WEN 座14走道</div></div></div>
+    <div class="br"><div><div class="br-date">7/5 & 7/6</div><span class="badge badge-done">✅</span></div><div><div class="br-name">少女峰座位（兩天保險訂）09:45 / 14:17</div><div class="br-note">決定後取消另一天！→ jungfrau.ch/refund-request</div></div></div>
+    <div class="br"><div><div class="br-date">6/28 10:00</div><span class="badge badge-done">✅</span></div><div><div class="br-name">Lindt 巧克力博物館</div><div class="br-note">預約時段入場</div></div></div>
+    <div class="br"><div><div class="br-date">6/30 18:00</div><span class="badge badge-done">✅</span></div><div><div class="br-name">Schäferstube（策馬特）</div><div class="br-note">3人</div></div></div>
+    <div class="br"><div><div class="br-date">6/28 19:00</div><span class="badge badge-done">✅</span></div><div><div class="br-name">Rosaly's（蘇黎世）</div><div class="br-note">3人</div></div></div>
+    <div class="br"><div><div class="br-date">7/2 19:00</div><span class="badge badge-done">✅</span></div><div><div class="br-name">Les Armures（日內瓦）</div><div class="br-note">3人</div></div></div>
+    <div class="br"><div><div class="br-date">7/4 19:00</div><span class="badge badge-done">✅</span></div><div><div class="br-name">Lucide KKL（琉森）</div><div class="br-note">3人 ｜ 略正式著裝</div></div></div>
+    <div class="br"><div><div class="br-date">7/5 12:00</div><span class="badge badge-done">✅</span></div><div><div class="br-name">Restaurant Crystal（少女峰頂）</div><div class="br-note">3人</div></div></div>
+  </div></div>
+
+  <div class="warnbox"><div class="warnbox-title">⚠️ 決定少女峰日期後立刻取消另一天</div><div style="font-size:0.78rem;">jungfrau.ch → Refund Request</div></div>
+
+  <div class="sec-title">待辦</div>
+  <div class="card"><div class="card-bd">
+    <div class="br"><div><div class="br-date">出發前</div><span class="badge badge-todo">待辦</span></div><div><div class="br-name">少女峰登山火車票</div><div class="br-note">7/4 晚上看天氣後購買 ｜ jungfrau.ch（STP 折扣）</div></div></div>
+    <div class="br"><div><div class="br-date">出發前</div><span class="badge badge-todo">待辦</span></div><div><div class="br-name">Gornergrat 火車票（含 Priority Boarding）</div><div class="br-note">帳號：littlehorse07@gmail.com ｜ Klook 或官網</div></div></div>
+    <div class="br"><div><div class="br-date">出發前</div><span class="badge badge-todo">待辦</span></div><div><div class="br-name">Pilatus Golden Round Trip 票</div><div class="br-note">當天購買亦可（不指定日期）</div></div></div>
+    <div class="br"><div><div class="br-date">出發前</div><span class="badge badge-todo">待辦</span></div><div><div class="br-name">聯合國導覽（3人）</div><div class="br-note">7/2 10:00 ｜ 需攜帶護照 ｜ fareharbor 預約</div></div></div>
+    <div class="br"><div><div class="br-date">出發前</div><span class="badge badge-todo">待辦</span></div><div><div class="br-name">日內瓦遊湖船票</div><div class="br-note">7/3 10:15 ｜ CGN 官網</div></div></div>
+  </div></div>
+</div>
+
+<!-- ══════════ 行前清單 ══════════ -->
+<div class="section" id="checklist">
+  <div class="sec-title">文件與票券</div>
+  <div class="card"><div class="card-bd">
+    <div class="ci"><div class="ci-icon">🛂</div><div><div class="ci-title">護照效期</div><div class="ci-desc">須有效至 2027/01/08 以後；姓名與機票一致</div></div></div>
+    <div class="ci"><div class="ci-icon">📧</div><div><div class="ci-title">所有確認信備份</div><div class="ci-desc">機票、飯店、餐廳、票券 PDF 存手機＋雲端</div></div></div>
+    <div class="ci"><div class="ci-icon">📸</div><div><div class="ci-title">票券截圖離線備份</div><div class="ci-desc">Swiss Travel Pass、少女峰座位、Lindt、Gornergrat、Pilatus</div></div></div>
+    <div class="ci"><div class="ci-icon">🧾</div><div><div class="ci-title">旅平險＋旅遊不便險</div><div class="ci-desc">含：航班延誤、行李遺失、取消旅程、高山事故</div></div></div>
+  </div></div>
+  <div class="sec-title">金融</div>
+  <div class="card"><div class="card-bd">
+    <div class="ci"><div class="ci-icon">💳</div><div><div class="ci-title">兩張不同組織信用卡</div><div class="ci-desc">Visa＋Master 或 Amex；開啟國外刷卡/感應</div></div></div>
+    <div class="ci"><div class="ci-icon">💱</div><div><div class="ci-title">瑞郎現金</div><div class="ci-desc">先換 <strong>300–400 CHF</strong>（小額/公廁/販賣機）<br>總備 CHF 1,500–2,000（約 NT$55,000）</div></div></div>
+  </div></div>
+  <div class="sec-title">網路與 App</div>
+  <div class="card"><div class="card-bd">
+    <div class="ci"><div class="ci-icon">📶</div><div><div class="ci-title">eSIM / SIM 卡</div><div class="ci-desc">Swisscom NATEL easy prepaid（CHF 19.9）或 Airalo eSIM（12GB ~NT$600）</div></div></div>
+    <div class="ci"><div class="ci-icon">📲</div><div><div class="ci-title">必裝 App</div><div class="ci-desc"><strong>SBB Mobile</strong>（火車/月台/誤點）、<strong>MeteoSwiss</strong>（天氣）、<strong>Google Maps</strong>（離線地圖）、<strong>Jungfrau</strong></div></div></div>
+  </div></div>
+  <div class="sec-title">行李</div>
+  <div class="card"><div class="card-bd">
+    <div class="ci"><div class="ci-icon">🧥</div><div><div class="ci-title">分層衣物</div><div class="ci-desc">山區 8–18°C / 平地 18–26°C / 少女峰頂近 0°C</div></div></div>
+    <div class="ci"><div class="ci-icon">🎒</div><div><div class="ci-title">高山裝備</div><div class="ci-desc">手套、毛帽、太陽眼鏡、SPF50 防曬、護唇膏、水壺、行動電源</div></div></div>
+  </div></div>
+  <div class="sec-title">出發前</div>
+  <div class="card"><div class="card-bd">
+    <div class="ci"><div class="ci-icon">📧</div><div><div class="ci-title">通知飯店抵達時間</div><div class="ci-desc">蘇黎世 14:00 ／ 策馬特 11:30 ／ 日內瓦 12:45 ／ 琉森 13:00</div></div></div>
+    <div class="ci"><div class="ci-icon">🚗</div><div><div class="ci-title">機場接送預約</div><div class="ci-desc">去程＋返台接送</div></div></div>
+    <div class="ci"><div class="ci-icon">🐱</div><div><div class="ci-title">貓旅館預訂</div><div class="ci-desc">6/27–7/8 貓咪照顧</div></div></div>
+  </div></div>
+</div>
+
+<!-- ══════════ 實用資訊 ══════════ -->
+<div class="section" id="tips">
+  <div class="ebox">
+    <div class="ebox-title">🆘 緊急電話</div>
+    <div class="ebox-item">警察 <span class="ebox-num">117</span></div>
+    <div class="ebox-item">救護車 <span class="ebox-num">144</span> ／ 消防 <span class="ebox-num">118</span></div>
+    <div class="ebox-item">歐洲通用 <span class="ebox-num">112</span></div>
+    <div class="ebox-item">台灣外交部急難救助 <span class="ebox-num">+41 44 733 0800</span></div>
+  </div>
+  <div class="sec-title">常用語言</div>
+  <div class="card"><div class="card-bd">
+    <div class="lr" style="font-size:0.68rem;font-weight:700;color:var(--muted)"><div>中文</div><div>🇩🇪 德語（蘇黎世/策馬特/琉森）</div><div>🇫🇷 法語（日內瓦）</div></div>
+    <div class="lr"><div>你好</div><div>Grüezi</div><div>Bonjour</div></div>
+    <div class="lr"><div>謝謝</div><div>Danke</div><div>Merci</div></div>
+    <div class="lr"><div>對不起</div><div>Entschuldigung</div><div>Excusez-moi</div></div>
+    <div class="lr"><div>廁所</div><div>Toilette</div><div>Toilettes</div></div>
+    <div class="lr"><div>多少錢</div><div>Wie viel?</div><div>Combien?</div></div>
+  </div></div>
+  <div class="sec-title">天氣與拍照</div>
+  <div class="tip">☀️ 平地 18–26°C ｜ 山區 8–18°C ｜ 少女峰頂近 0°C</div>
+  <div class="tip">📸 高山最佳光線 <strong>08:00–10:00</strong>（少女峰、Gornergrat）</div>
+  <div class="tip">🌧 遇下雨改排博物館或市區（彈性調整）</div>
+  <div class="sec-title">常用連結</div>
+  <div class="card"><div class="card-bd" style="display:flex; flex-direction:column; gap:0.5rem; padding: 0.7rem 0.9rem;">
+    <a class="sbb-link" href="https://www.sbb.ch" target="_blank" style="width:fit-content;">🚆 SBB 官網查班次</a>
+    <a class="transit-link" href="https://www.meteoswiss.admin.ch" target="_blank" style="width:fit-content;">🌤 MeteoSwiss 天氣</a>
+    <a class="transit-link" href="https://www.jungfrau.ch/en-gb/live/webcams/" target="_blank" style="width:fit-content;">📷 少女峰 Live Webcam</a>
+    <a class="transit-link" href="https://www.jungfrau.ch/en-gb/jungfraujoch-top-of-europe/buy-jungfraujoch-ticket/" target="_blank" style="width:fit-content;">🎟 少女峰買票</a>
+    <a class="transit-link" href="https://www.jungfrau.ch/en-gb/reklamation/lob/rueckerstattungsanfrage/refund-request/" target="_blank" style="width:fit-content;">↩️ 少女峰座位退款</a>
+    <a class="transit-link" href="https://www.gornergrat.ch/en/tickets/priorityboarding" target="_blank" style="width:fit-content;">🚞 Gornergrat Priority Boarding</a>
+    <a class="transit-link" href="https://www.pilatus.ch/en/discover/golden-round-trip/" target="_blank" style="width:fit-content;">🚡 Pilatus Golden Round Trip</a>
+    <a class="notion-link" href="spots/index.html" target="_blank" style="width:fit-content;">📖 景點攻略總覽</a>
+    <a class="notion-link" href="spots/jungfrau.html" target="_blank" style="width:fit-content;">📖 少女峰完整攻略</a>
+    <a class="notion-link" href="spots/pilatus.html" target="_blank" style="width:fit-content;">📖 皮拉圖斯山攻略</a>
+    <a class="notion-link" href="spots/zermatt.html" target="_blank" style="width:fit-content;">📖 Zermatt 攻略</a>
+    <a class="notion-link" href="spots/matterhorn.html" target="_blank" style="width:fit-content;">📖 馬特洪峰攻略</a>
+  </div></div>
+</div>
+
+<script>
+function showTab(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo(0, 0);
+}
+function toggle(hdr) {
+  const body = hdr.nextElementSibling;
+  const ch = hdr.querySelector('.day-chevron');
+  const collapsed = body.classList.toggle('collapsed');
+  ch.textContent = collapsed ? '▶' : '▼';
+}
+</script>
+</body>
+</html>

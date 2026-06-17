@@ -1,0 +1,132 @@
+<!DOCTYPE html><html lang="zh-Hant"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>馬特洪峰・Gornergrat</title>
+<style>
+:root{--navy:#1a2744;--navy2:#243460;--gold:#c9a84c;--gold-light:#f0d98a;--bg:#f5f3ee;--white:#fff;--border:#e0dcd2;--text:#2c2c2c;--muted:#7f8c8d;--blue:#2475b0;--green:#27ae60;--red:#c0392b;--done-bg:#eafaf1;--done-fg:#1e8449;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang TC","Heiti TC",sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7;}
+.top-bar{background:var(--navy);padding:0.6rem 1rem;}
+.back-btn{color:var(--gold);text-decoration:none;font-size:0.82rem;font-weight:600;}
+.hero{background:var(--navy2);color:white;padding:1.4rem 1rem 1rem;border-bottom:3px solid var(--gold);}
+.hero-emoji{font-size:2rem;margin-bottom:0.3rem;}
+.hero h1{font-size:1.3rem;font-weight:700;color:var(--gold-light);}
+.hero-sub{font-size:0.78rem;color:rgba(255,255,255,0.55);margin-top:0.2rem;}
+.body{padding:0.9rem;}
+/* ── 4 tab nav ── */
+.tab-nav{display:flex;background:var(--navy2);border-bottom:2px solid var(--gold);overflow-x:auto;scrollbar-width:none;}
+.tab-nav::-webkit-scrollbar{display:none;}
+.tab-btn{flex:1;padding:0.65rem 0.5rem;background:none;border:none;color:rgba(255,255,255,.55);font-size:0.78rem;cursor:pointer;white-space:nowrap;font-family:inherit;border-bottom:3px solid transparent;margin-bottom:-2px;text-align:center;}
+.tab-btn.active{color:var(--gold);border-bottom-color:var(--gold);}
+.tab-pane{display:none;padding:0.9rem;}
+.tab-pane.active{display:block;}
+/* ── cards ── */
+.sec{background:var(--white);border-radius:12px;border:1px solid var(--border);margin-bottom:0.9rem;overflow:hidden;}
+.sec-hd{background:var(--navy);color:white;padding:0.65rem 1rem;font-weight:600;font-size:0.88rem;}
+.sec-bd{padding:0.75rem 1rem;}
+.row{display:grid;grid-template-columns:82px 1fr;gap:0.3rem 0.6rem;padding:0.5rem 0;border-bottom:1px solid var(--border);align-items:start;}
+.row:last-child{border-bottom:none;}
+.row-label{font-size:0.68rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;padding-top:.1rem;}
+.row-val{font-size:0.83rem;}
+.tblock{background:#eef4fb;border-left:3px solid var(--blue);border-radius:0 6px 6px 0;padding:0.5rem 0.75rem;margin:0.3rem 0;font-size:0.82rem;line-height:1.7;}
+.tip{background:#fffbf0;border-left:4px solid var(--gold);padding:0.5rem 0.75rem;border-radius:0 8px 8px 0;margin:0.4rem 0;font-size:0.82rem;}
+.warn{background:#fdedec;border:1.5px solid var(--red);border-radius:8px;padding:0.6rem 0.8rem;margin:0.4rem 0;font-size:0.82rem;}
+.badge{display:inline-block;padding:.12rem .45rem;border-radius:10px;font-size:.68rem;font-weight:600;}
+.done{background:var(--done-bg);color:var(--done-fg);}
+.lnks{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.4rem;}
+a.ml{display:inline-flex;align-items:center;gap:.2rem;background:#e8f4fd;color:var(--blue);border:1px solid #c3dff5;border-radius:6px;padding:.18rem .5rem;font-size:.72rem;font-weight:600;text-decoration:none;}
+a.ml::before{content:"📍 ";}
+a.tl{display:inline-flex;align-items:center;gap:.2rem;background:#e8faf0;color:#1a7a42;border:1px solid #b7dfca;border-radius:6px;padding:.18rem .5rem;font-size:.72rem;font-weight:600;text-decoration:none;}
+a.sl{display:inline-flex;align-items:center;gap:.2rem;background:#fff0f0;color:#c0392b;border:1px solid #f5c6c6;border-radius:6px;padding:.18rem .5rem;font-size:.72rem;font-weight:600;text-decoration:none;}
+a.ol{display:inline-flex;align-items:center;gap:.2rem;background:#fef9e7;color:#7d6008;border:1px solid #e8d98a;border-radius:6px;padding:.18rem .5rem;font-size:.72rem;font-weight:600;text-decoration:none;}
+h3{font-size:0.83rem;font-weight:700;margin:0.6rem 0 0.25rem;color:var(--navy2);}
+p{font-size:0.82rem;margin-bottom:0.35rem;}
+ul,ol{padding-left:1.2rem;font-size:0.82rem;}
+li{margin-bottom:0.22rem;}
+table{width:100%;border-collapse:collapse;font-size:0.76rem;margin:0.5rem 0;}
+th,td{border:1px solid var(--border);padding:0.4rem 0.5rem;vertical-align:top;line-height:1.5;}
+th{background:var(--navy);color:white;font-weight:600;}
+/* ── big map button ── */
+.map-btn{display:flex;align-items:center;justify-content:center;gap:0.6rem;border-radius:12px;padding:0.85rem 1rem;font-size:0.92rem;font-weight:700;text-decoration:none;margin:0.5rem 0;color:white;}
+.map-btn.blue{background:var(--blue);}
+.map-btn.green{background:#1a7a42;}
+.map-btn.red{background:var(--red);}
+</style>
+<script>
+function showTab(id,btn){
+  document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+
+<script>
+// Activate tab matching URL hash on load
+window.addEventListener('DOMContentLoaded',function(){
+  var h=location.hash.replace('#','');
+  if(!h)return;
+  var pane=document.getElementById(h);
+  var btn=document.querySelector('.tab-btn[onclick*="''+h+''"]');
+  if(pane&&btn){
+    document.querySelectorAll('.tab-pane').forEach(function(p){p.classList.remove('active');});
+    document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
+    pane.classList.add('active');
+    btn.classList.add('active');
+    pane.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+});
+</script>
+</head><body>
+<div class="top-bar"><a class="back-btn" href="../switzerland_travel_guide.html">← 回行程總覽</a></div>
+<div class="hero"><div class="hero-emoji">⛰️</div><h1>馬特洪峰・Gornergrat</h1><div class="hero-sub">策馬特 ｜ 6/29 下午</div></div>
+<nav class="tab-nav"><button class="tab-btn active" onclick="showTab('detail',this)">📖 詳細資訊</button><button class="tab-btn" onclick="showTab('info',this)">📋 地點資訊</button><button class="tab-btn" onclick="showTab('transport',this)">🚉 交通</button><button class="tab-btn" onclick="showTab('map',this)">📍 地圖</button></nav>
+
+<div class="tab-pane active" id="detail">
+  <div class="sec"><div class="sec-hd">📸 Riffelsee 湖倒影（必去）</div><div class="sec-bd">
+    <p>下 Gornergrat 站後步行約 <strong>15–20 分鐘</strong>可到 Riffelsee 高山湖，無風時湖面完美倒映馬特洪峰。</p>
+    <div class="tip">⏰ 最佳時間：<strong>下午 14:00–16:00</strong>（光線角度最好、人潮較少）<br>無風 + 晴天 = 完美倒影；微風時拍不到倒影</div>
+  </div></div>
+  <div class="sec"><div class="sec-hd">🔭 Gornergrat 頂觀景台（3,089m）</div><div class="sec-bd">
+    <p>站在頂點可 360° 看到 <strong>29 座 4,000m 以上山峰</strong>，蒙特羅薩（Monte Rosa）就在旁邊。</p>
+    <div class="warn">⚠️ 海拔 3,089m，初到高山請慢行，避免跑步</div>
+    <div class="tip">🌡 氣溫比山下低 10–15°C，薄外套必備<br>🎫 Priority Boarding 旺季尤其重要，可不排隊</div>
+  </div></div>
+</div>
+
+<div class="tab-pane" id="info">
+  <div class="sec"><div class="sec-hd">📋 地點資訊</div><div class="sec-bd">
+    <div class="row"><div class="row-label">票券</div><div class="row-val">Klook 或 Gornergrat 官網，選含 <strong>Priority Boarding</strong></div></div>
+    <div class="row"><div class="row-label">STP 折扣</div><div class="row-val">Swiss Travel Pass 享 <strong>50% 折扣</strong></div></div>
+    <div class="row"><div class="row-label">帳號</div><div class="row-val">littlehorse07@gmail.com</div></div>
+    <div class="row"><div class="row-label">海拔</div><div class="row-val">Gornergrat 頂 <strong>3,089m</strong>｜Riffelsee 約 2,757m</div></div>
+    <div class="lnks">
+      <a class="tl" href="https://www.gornergrat.ch/en/tickets/priorityboarding" target="_blank">Priority Boarding 購票</a>
+      <a class="tl" href="https://www.gornergrat.ch/en/" target="_blank">Gornergrat 官網</a>
+    </div>
+  </div></div>
+</div>
+
+<div class="tab-pane" id="transport">
+  <div class="sec"><div class="sec-hd">🚞 Zermatt → Gornergrat</div><div class="sec-bd">
+    <div class="tblock">
+      <strong>Zermatt 車站</strong> → Gornergrat 登山火車 → <strong>Gornergrat 頂（3,089m）</strong><br>
+      車程約 <strong>33 分鐘</strong>，每小時 2 班
+    </div>
+    <div class="tip">🪟 坐行進方向<strong>右側</strong>，馬特洪峰視野最佳</div>
+    <div class="lnks">
+      <a class="ml" href="https://www.google.com/maps/search/?api=1&query=Gornergrat+Bahnhof+Zermatt" target="_blank">Gornergrat 車站</a>
+      <a class="ml" href="https://www.google.com/maps/search/?api=1&query=Zermatt+Bahnhof" target="_blank">Zermatt 車站</a>
+    </div>
+  </div></div>
+</div>
+
+<div class="tab-pane" id="map">
+  <div class="sec"><div class="sec-hd">📍 地圖</div><div class="sec-bd">
+    <a class="map-btn blue" href="https://www.google.com/maps/search/?api=1&query=Gornergrat+Bahnhof+Zermatt" target="_blank">📍 Gornergrat 車站</a>
+    <a class="map-btn green" href="https://www.google.com/maps/search/?api=1&query=Matterhorn+Zermatt" target="_blank">📍 馬特洪峰觀景點</a>
+    <div class="row" style="margin-top:0.5rem"><div class="row-label">起點</div><div class="row-val">Zermatt 火車站（步行即達登山火車）</div></div>
+    <div class="row"><div class="row-label">終點</div><div class="row-val">Gornergrat 頂 3,089m</div></div>
+  </div></div>
+</div>
+
+</body></html>
