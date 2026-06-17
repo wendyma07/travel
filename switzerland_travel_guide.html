@@ -125,14 +125,20 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC"
 .ebox-title { font-weight: 700; color: var(--red); margin-bottom: 0.35rem; font-size: 0.83rem; }
 .ebox-item { font-size: 0.8rem; padding: 0.12rem 0; }
 .ebox-num { font-weight: 700; font-family: monospace; }
-/* ── 替代方案比較表 ── */
-.compare-wrap { overflow-x: auto; margin: 0.5rem 0; }
-.compare-table { width: 100%; border-collapse: collapse; font-size: 0.75rem; min-width: 420px; }
-.compare-table th { background: var(--navy); color: white; padding: 0.45rem 0.6rem; font-weight: 700; text-align: left; }
-.compare-table th:first-child { width: 90px; }
-.compare-table td { border: 1px solid var(--border); padding: 0.4rem 0.6rem; vertical-align: top; line-height: 1.55; }
-.compare-table tr:nth-child(even) td { background: #faf9f5; }
-.compare-table td:first-child { font-weight: 700; font-size: 0.7rem; color: var(--navy2); background: #eef1f8; }
+/* ── 替代方案比較（手機友好卡片版） ── */
+.compare-cards { margin: 0.5rem 0; }
+.compare-heads { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3px; margin-bottom: 3px; }
+.compare-head { padding: 0.4rem 0.3rem; border-radius: 6px; font-size: 0.68rem; font-weight: 700; text-align: center; line-height: 1.35; }
+.compare-head.p { background: var(--navy); color: var(--gold-light); }
+.compare-head.f { background: #7b3f00; color: #ffd59e; }
+.compare-head.t { background: #0b5563; color: #a8eaf5; }
+.compare-item { margin-bottom: 3px; }
+.compare-lbl { font-size: 0.62rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; padding: 0.18rem 0.4rem; background: #eef1f8; border-radius: 4px 4px 0 0; }
+.compare-vals { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; }
+.compare-val { padding: 0.35rem 0.4rem; font-size: 0.71rem; line-height: 1.45; border-radius: 0 0 4px 4px; }
+.compare-val.p { background: #eef4fb; border-left: 3px solid var(--blue); }
+.compare-val.f { background: #fff4e6; border-left: 3px solid #e67e22; }
+.compare-val.t { background: #e6f7fa; border-left: 3px solid #0b9ab0; }
 </style>
 </head>
 <body>
@@ -1063,24 +1069,60 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC"
       <div class="info-label">🆚 替代</div>
       <div class="info-val">
         <div class="tip">⚠️ 以下兩個行程擇一，確定後請取消另一天</div>
-        <div class="compare-wrap">
-          <table class="compare-table">
-            <thead>
-              <tr>
-                <th>比較項目</th>
-                <th>🏔️ 皮拉圖斯 Golden Round Trip</th>
-                <th>⚡ 菲斯特 First 冒險</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>旅遊風格</td><td>歷史、交通工藝與靜態大景</td><td>熱血戶外、極限刺激與冒險</td></tr>
-              <tr><td>景觀亮點</td><td>俯瞰琉森湖全景，體驗世界最陡齒軌鐵道奇蹟</td><td>懸空峭壁「懸崖步道」，正對艾格峰冰川大面</td></tr>
-              <tr><td>13/15歲體驗</td><td>🚌 偏靜態：坐不同交通工具拍照，互動性較低</td><td>🏎️ 瘋狂尖叫：親自操控山地卡丁車甩尾、玩高空飛索！</td></tr>
-              <tr><td>交通體力</td><td>🛌 極輕鬆：就在琉森旁，單程不超過 1.5 小時</td><td>🚂 長途拉車：來回火車約 4 小時，體力消耗較大</td></tr>
-              <tr><td>拍照亮點</td><td>遊船波光、紅色小火車爬坡復古感</td><td>iPhone 動作模式錄卡丁車衝刺、飛索第一視角</td></tr>
-              <tr><td>票價預算</td><td>💰 極省：交通含在 STP + Family Card 內</td><td>💸 較高：卡丁車、飛索須現場另購活動票</td></tr>
-            </tbody>
-          </table>
+        <div class="compare-cards">
+          <div class="compare-heads">
+            <div class="compare-head p">🏔️ 皮拉圖斯<br>Golden Round Trip</div>
+            <div class="compare-head f">⚡ 菲斯特<br>First 冒險</div>
+            <div class="compare-head t">❄️ 提特里斯<br>Titlis 冰川</div>
+          </div>
+          <div class="compare-item">
+            <div class="compare-lbl">旅遊風格</div>
+            <div class="compare-vals">
+              <div class="compare-val p">歷史交通工藝、靜態大景</div>
+              <div class="compare-val f">熱血戶外、極限冒險</div>
+              <div class="compare-val t">冰川奇景、親子雪地樂趣</div>
+            </div>
+          </div>
+          <div class="compare-item">
+            <div class="compare-lbl">景觀亮點</div>
+            <div class="compare-vals">
+              <div class="compare-val p">琉森湖全景、世界最陡齒軌鐵道</div>
+              <div class="compare-val f">懸崖步道正對艾格峰冰川</div>
+              <div class="compare-val t">3,238m 旋轉纜車 Rotair、冰川洞穴</div>
+            </div>
+          </div>
+          <div class="compare-item">
+            <div class="compare-lbl">13/15歲體驗</div>
+            <div class="compare-vals">
+              <div class="compare-val p">🚌 偏靜態，坐車拍照為主</div>
+              <div class="compare-val f">🏎️ 卡丁車甩尾、高空飛索！</div>
+              <div class="compare-val t">❄️ 夏天玩雪！雪橇、冰穴探險</div>
+            </div>
+          </div>
+          <div class="compare-item">
+            <div class="compare-lbl">交通 / 體力</div>
+            <div class="compare-vals">
+              <div class="compare-val p">🛌 最輕鬆，單程 &lt;1.5 小時</div>
+              <div class="compare-val f">🚂 來回火車約 4 小時</div>
+              <div class="compare-val t">🚂 45 分鐘直達 Engelberg，最近！</div>
+            </div>
+          </div>
+          <div class="compare-item">
+            <div class="compare-lbl">拍照亮點</div>
+            <div class="compare-vals">
+              <div class="compare-val p">遊船波光、紅色小火車爬坡</div>
+              <div class="compare-val f">飛索衝刺第一視角動感大片</div>
+              <div class="compare-val t">旋轉纜車 360°、冰川懸崖步道</div>
+            </div>
+          </div>
+          <div class="compare-item">
+            <div class="compare-lbl">票價預算</div>
+            <div class="compare-vals">
+              <div class="compare-val p">💰 含在 STP + Family Card</div>
+              <div class="compare-val f">💸 活動票須現場另購</div>
+              <div class="compare-val t">💸 成人 CHF 96，兒童半價</div>
+            </div>
+          </div>
         </div>
         <div class="place-item" style="margin-top:0.7rem;">
           <div class="place-icon">⚡</div>
@@ -1092,6 +1134,19 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC"
               <a class="transit-link" href="spots/first.html#transport" target="_blank">交通路線</a>
               <a class="info-link" href="spots/first.html#info" target="_blank">地點資訊</a>
               <a class="notion-link" href="spots/first.html" target="_blank">詳細資訊</a>
+            </div>
+          </div>
+        </div>
+        <div class="place-item" style="margin-top:0.4rem;">
+          <div class="place-icon">❄️</div>
+          <div>
+            <div class="place-name">提特里斯山 Titlis（3,238m）</div>
+            <div class="place-desc" style="font-size:0.77rem;color:#666;margin:0.2rem 0 0.35rem;">旋轉纜車 Rotair · 冰川洞穴 · 懸崖步道 · 夏天玩雪</div>
+            <div class="place-links">
+              <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Mount+Titlis+Engelberg+Switzerland" target="_blank">地圖</a>
+              <a class="transit-link" href="spots/titlis.html#transport" target="_blank">交通路線</a>
+              <a class="info-link" href="spots/titlis.html#info" target="_blank">地點資訊</a>
+              <a class="notion-link" href="spots/titlis.html" target="_blank">詳細資訊</a>
             </div>
           </div>
         </div>
