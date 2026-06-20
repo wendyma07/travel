@@ -490,6 +490,7 @@ function init() {
   document.getElementById('rateInput').value = rate;
   document.getElementById('f-date').value = new Date().toISOString().slice(0,10);
   initCatDropdowns();
+  switchTab('overview');
   renderAll();
 
   document.getElementById('rateInput').addEventListener('input', () => {
@@ -497,6 +498,8 @@ function init() {
     save();
     renderAll();
   });
+
+  switchTab('add'); // 每次開頁預設停在記帳頁
 }
 
 init();
