@@ -24,15 +24,24 @@ function getAll() {
   const sheet = getSheet();
   const rows  = sheet.getDataRange().getValues();
   if (rows.length <= 1) return [];
-  return rows.slice(1).map(r => ({
-    id:      String(r[0]),
-    cat:     String(r[1]),
-    nt:      Number(r[2]),
-    chf:     Number(r[3]),
-    note:    String(r[4]),
-    date:    String(r[5]),
-    prepaid: false
-  }));
+  return rows.slice(1).map(r => {
+    // r[5] may be a Date object (Sheets auto-converts YYYY-MM-DD); format back to ISO string
+    let dateVal = r[5];
+    if (dateVal instanceof Date) {
+      dateVal = Utilities.formatDate(dateVal, 'Asia/Taipei', 'yyyy-MM-dd');
+    } else {
+      dateVal = String(dateVal).substring(0, 10); // trim if already string
+    }
+    return {
+      id:      String(r[0]),
+      cat:     String(r[1]),
+      nt:      Number(r[2]),
+      chf:     Number(r[3]),
+      note:    String(r[4]),
+      date:    dateVal,
+      prepaid: false
+    };
+  });
 }
 
 // ── 新增一筆（防重複） ──

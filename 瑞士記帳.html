@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🇨🇭 瑞士旅遊記帳</title>
 <style>
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
     --bg: #f0f2f5;
@@ -53,7 +54,7 @@
 
   /* Tab nav */
   .tabs { display: flex; background: var(--card); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10; }
-  .tab { flex: 1; min-width: 0; padding: 12px 4px; text-align: center; font-size: 13px; font-weight: 500; color: var(--sub); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tab { flex: 1; min-width: 0; padding: 11px 2px; text-align: center; font-size: 12px; font-weight: 500; color: var(--sub); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .tab.active { color: var(--primary); border-bottom-color: var(--primary); }
 
   /* Section */
@@ -529,7 +530,14 @@ async function init() {
   if (SHEET_URL) {
     const sheetData = await sheetLoadAll();
     if (sheetData) {
-      expenses = sheetData;
+      // Normalize dates (Sheets may return full date strings; convert to YYYY-MM-DD)
+      expenses = sheetData.map(e => {
+        if (e.date && !/^\d{4}-\d{2}-\d{2}$/.test(e.date)) {
+          const d = new Date(e.date);
+          e.date = isNaN(d) ? e.date : d.toISOString().slice(0, 10);
+        }
+        return e;
+      });
       save(); // 更新 localStorage 快取
       renderAll();
     }
