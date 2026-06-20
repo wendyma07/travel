@@ -20,7 +20,7 @@
     --red: #ef4444;
     --shadow: 0 2px 8px rgba(0,0,0,0.08);
   }
-  body { background: var(--bg); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: var(--text); min-height: 100vh; padding-bottom: 100px; }
+  body { background: var(--bg); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: var(--text); min-height: 100vh; padding-bottom: 100px; overflow-x: hidden; }
 
   /* Header */
   .header { background: var(--primary); color: white; padding: 20px 16px 28px; position: relative; }
@@ -90,10 +90,11 @@
 
   /* Log */
   .log-item { background: var(--card); border-radius: 12px; padding: 12px 14px; margin-bottom: 8px; box-shadow: var(--shadow); display: flex; justify-content: space-between; align-items: flex-start; }
+  .log-left { flex: 1; min-width: 0; overflow: hidden; }
   .log-left .log-cat { font-size: 11px; color: var(--sub); margin-bottom: 2px; }
-  .log-left .log-note { font-size: 14px; font-weight: 500; }
+  .log-left .log-note { font-size: 14px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .log-left .log-date { font-size: 11px; color: var(--sub); margin-top: 2px; }
-  .log-right { text-align: right; }
+  .log-right { flex-shrink: 0; text-align: right; padding-left: 10px; }
   .log-right .log-nt { font-size: 15px; font-weight: 700; color: var(--primary); }
   .log-right .log-chf { font-size: 11px; color: var(--sub); }
   .log-right .btn-del { font-size: 11px; color: var(--sub); background: none; border: none; cursor: pointer; margin-top: 4px; display: block; margin-left: auto; }
