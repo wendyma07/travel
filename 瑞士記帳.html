@@ -533,9 +533,11 @@ async function init() {
       // Normalize dates (Sheets may return full date strings; convert to YYYY-MM-DD)
       expenses = sheetData.map(e => {
         if (e.date && !/^\d{4}-\d{2}-\d{2}$/.test(e.date)) {
-          const d = new Date(e.date);
+          // Try parsing; if no year (e.g. "Sat Jun 27"), append trip year
+          let raw = e.date;
+          if (!/\d{4}/.test(raw)) raw = raw + ' 2026';
+          const d = new Date(raw);
           if (!isNaN(d)) {
-            // Use local date components to avoid UTC offset shifting the day
             const y = d.getFullYear();
             const m = String(d.getMonth() + 1).padStart(2, '0');
             const day = String(d.getDate()).padStart(2, '0');

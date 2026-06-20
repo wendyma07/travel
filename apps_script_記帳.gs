@@ -25,12 +25,13 @@ function getAll() {
   const rows  = sheet.getDataRange().getValues();
   if (rows.length <= 1) return [];
   return rows.slice(1).map(r => {
-    // r[5] may be a Date object (Sheets auto-converts YYYY-MM-DD); format back to ISO string
-    let dateVal = r[5];
-    if (dateVal instanceof Date) {
-      dateVal = Utilities.formatDate(dateVal, 'Asia/Taipei', 'yyyy-MM-dd');
-    } else {
-      dateVal = String(dateVal).substring(0, 10); // trim if already string
+    // r[5] is a Date object when Sheets auto-converts YYYY-MM-DD strings
+    // Use try/catch since instanceof Date behaves unexpectedly in Apps Script V8
+    let dateVal;
+    try {
+      dateVal = Utilities.formatDate(new Date(r[5]), 'Asia/Taipei', 'yyyy-MM-dd');
+    } catch(e) {
+      dateVal = String(r[5]).substring(0, 10);
     }
     return {
       id:      String(r[0]),
