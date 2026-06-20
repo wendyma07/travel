@@ -270,6 +270,10 @@ const PREPAID = [
 let rate = 38;
 let expenses = []; // user-added
 
+// ── Google Sheets 設定 ──
+// 部署 Apps Script 後把 URL 貼在這裡
+const SHEET_URL = '';
+
 function save() {
   localStorage.setItem('chExpenses', JSON.stringify(expenses));
   localStorage.setItem('chRate', rate);
@@ -279,6 +283,21 @@ function load() {
   if (saved) expenses = JSON.parse(saved);
   const savedRate = localStorage.getItem('chRate');
   if (savedRate) rate = parseFloat(savedRate);
+}
+
+// ── Google Sheets 同步 ──
+function sheetSync(params) {
+  if (!SHEET_URL) return;
+  const url = SHEET_URL + '?' + new URLSearchParams(params).toString();
+  fetch(url).catch(() => {}); // fire and forget
+}
+async function sheetLoadAll() {
+  if (!SHEET_URL) return null;
+  try {
+    const res = await fetch(SHEET_URL + '?action=getAll');
+    const data = await res.json();
+    return Array.isArray(data) ? data : null;
+  } catch(e) { return null; }
 }
 
 function allExpenses() {
@@ -453,6 +472,7 @@ function addExpense() {
   };
   expenses.push(entry);
   save();
+  sheetSync({ action: 'add', data: JSON.stringify(entry) }); // 同步到 Google Sheets
 
   // Reset form
   document.getElementById('f-nt').value = '';
@@ -469,6 +489,7 @@ function delExpense(id) {
   if (!confirm('確定要刪除這筆紀錄？')) return;
   expenses = expenses.filter(e => e.id !== id);
   save();
+  sheetSync({ action: 'delete', id: id }); // 同步到 Google Sheets
   renderAll();
 }
 
@@ -489,14 +510,14 @@ function initCatDropdowns() {
   document.getElementById('logFilter').innerHTML = '<option value="">全部類別</option>' + filterOpts;
 }
 
-function init() {
-  load();
+async function init() {
+  load(); // 先從 localStorage 載入（快）
   rate = parseFloat(localStorage.getItem('chRate')) || 38;
   document.getElementById('rateInput').value = rate;
   document.getElementById('f-date').value = new Date().toISOString().slice(0,10);
   initCatDropdowns();
-  switchTab('overview');
   renderAll();
+  switchTab('add');
 
   document.getElementById('rateInput').addEventListener('input', () => {
     rate = parseFloat(document.getElementById('rateInput').value) || 38;
@@ -504,10 +525,18 @@ function init() {
     renderAll();
   });
 
-  switchTab('add'); // 每次開頁預設停在記帳頁
+  // 再從 Google Sheets 同步（背景，覆蓋 localStorage）
+  if (SHEET_URL) {
+    const sheetData = await sheetLoadAll();
+    if (sheetData) {
+      expenses = sheetData;
+      save(); // 更新 localStorage 快取
+      renderAll();
+    }
+  }
 }
 
-init();
+init().catch(console.error);
 </script>
 </body>
 </html>
