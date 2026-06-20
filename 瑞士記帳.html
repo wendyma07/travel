@@ -44,7 +44,7 @@
 
   /* Exchange rate bar */
   .rate-bar { background: var(--card); padding: 10px 16px; display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--sub); border-bottom: 1px solid var(--border); }
-  .rate-bar input { width: 60px; border: 1px solid var(--border); border-radius: 6px; padding: 3px 6px; font-size: 13px; text-align: center; }
+  .rate-bar input { width: 60px; border: 1px solid var(--border); border-radius: 6px; padding: 3px 6px; font-size: 16px; text-align: center; }
   .rate-bar label { font-weight: 500; color: var(--text); }
 
   /* Overall progress */
@@ -80,7 +80,7 @@
   .form-row { margin-bottom: 14px; }
   .form-row label { display: block; font-size: 12px; font-weight: 600; color: var(--sub); margin-bottom: 5px; }
   .form-row input, .form-row select, .form-row textarea {
-    width: 100%; border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; font-size: 15px; color: var(--text); background: var(--bg); outline: none; transition: border 0.2s;
+    width: 100%; border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; font-size: 16px; color: var(--text); background: var(--bg); outline: none; transition: border 0.2s;
   }
   .form-row input:focus, .form-row select:focus { border-color: var(--primary); background: white; }
   .currency-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -225,7 +225,7 @@
   <div class="section">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
       <div class="section-title" style="margin:0">支出明細</div>
-      <select id="logFilter" onchange="renderLog()" style="border:1px solid var(--border);border-radius:8px;padding:4px 8px;font-size:12px;background:white;max-width:45%;">
+      <select id="logFilter" onchange="renderLog()" style="border:1px solid var(--border);border-radius:8px;padding:4px 8px;font-size:16px;background:white;max-width:50%;">
         <option value="">全部類別</option>
       </select>
     </div>
