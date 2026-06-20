@@ -125,6 +125,16 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC"
 .ebox-title { font-weight: 700; color: var(--red); margin-bottom: 0.35rem; font-size: 0.83rem; }
 .ebox-item { font-size: 0.8rem; padding: 0.12rem 0; }
 .ebox-num { font-weight: 700; font-family: monospace; }
+/* ── 打包清單 checkbox ── */
+.pack-section { margin-bottom: 1rem; }
+.pack-section-title { background: var(--navy); color: var(--gold-light); font-weight: 700; font-size: 0.82rem; padding: 0.5rem 0.8rem; border-radius: 8px 8px 0 0; }
+.pack-list { background: var(--white); border: 1px solid var(--border); border-top: none; border-radius: 0 0 8px 8px; padding: 0.4rem 0.2rem; }
+.pack-item { display: flex; align-items: flex-start; gap: 0.5rem; padding: 0.38rem 0.8rem; border-bottom: 1px solid #f0ece4; cursor: pointer; font-size: 0.82rem; line-height: 1.5; }
+.pack-item:last-child { border-bottom: none; }
+.pack-item input[type=checkbox] { appearance: none; width: 16px; height: 16px; min-width: 16px; border: 2px solid var(--muted); border-radius: 4px; margin-top: 2px; cursor: pointer; transition: all .15s; }
+.pack-item input[type=checkbox]:checked { background: var(--green); border-color: var(--green); background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 10 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4l3 3 5-6' stroke='white' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-size: 10px; background-repeat: no-repeat; background-position: center; }
+.pack-item.checked-item span { text-decoration: line-through; color: var(--muted); }
+.pack-reset { font-size: 0.72rem; color: var(--red); background: none; border: none; cursor: pointer; padding: 0.2rem 0; text-decoration: underline; }
 /* ── 替代方案比較（手機友好卡片版） ── */
 .compare-cards { margin: 0.5rem 0; }
 .compare-heads { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3px; margin-bottom: 3px; }
@@ -1316,7 +1326,91 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC"
     <div class="ci"><div class="ci-icon">🚗</div><div><div class="ci-title">機場接送預約</div><div class="ci-desc">去程＋返台接送</div></div></div>
     <div class="ci"><div class="ci-icon">🐱</div><div><div class="ci-title">貓旅館預訂</div><div class="ci-desc">6/27–7/8 貓咪照顧</div></div></div>
   </div></div>
+
+  <!-- ── 打包清單 ── -->
+  <div class="sec-title" style="margin-top:1rem;">🧳 打包清單 <button class="pack-reset" onclick="resetPacking()">重置全部</button></div>
+
+  <div class="pack-section">
+    <div class="pack-section-title">📝 媽媽出門前確認事宜</div>
+    <div class="pack-list" id="pack-mom">
+      <label class="pack-item"><input type="checkbox" data-key="m0"><span>350 瑞郎現金換匯分配：10 瑞郎 25 張（共 250 瑞郎）、20 瑞郎 5 張（共 100 瑞郎）</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="m1"><span>貓旅館預約與安置確認</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="m2"><span>機場接送時間與上車地點確認</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="m3"><span>Google Drive 雲端備份（確認行程、電子票券、護照影本已同步）</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="m4"><span>出門前行李拍照（大行李箱外觀、隨身包外觀、所有箱內內容物，用於理賠或遺失備查）</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="m5"><span>浴巾</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="m6"><span>牙線</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="m7"><span>洗面乳</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="m8"><span>卸妝用品</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="m9"><span>個人保養品（乳液 / 保濕）</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="m10"><span>大瓶防曬乳</span></label>
+    </div>
+  </div>
+
+  <div class="pack-section">
+    <div class="pack-section-title">🧳 大行李箱衣物清單（每人）</div>
+    <div class="pack-list" id="pack-bag">
+      <label class="pack-item"><input type="checkbox" data-key="b0"><span>短袖上衣：5件</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="b1"><span>長袖上衣：4件</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="b2"><span>涼爽長褲或休閒短褲：5件</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="b3"><span>內衣褲：5套</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="b4"><span>吸汗厚棉襪或保暖襪：5雙</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="b5"><span>厚刷毛外套：1件</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="b6"><span>防風防水外套：1件</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="b7"><span>保暖毛帽：1頂</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="b8"><span>睡衣：1套</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="b9"><span>舒適耐磨防滑運動鞋：2雙</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="b10"><span>米其林晚宴正式服裝：1套（男：有領襯衫、長褲、休閒皮鞋；女：精緻洋裝或質感衣褲）</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="b11"><span>毛巾</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="b12"><span>牙刷</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="b13"><span>牙膏</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="b14"><span>瑞士專用轉接頭（J型三圓針）</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="b15"><span>AirTag（大行李箱各放一顆）</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="b16"><span>備用充電線組</span></label>
+    </div>
+  </div>
+
+  <div class="pack-section">
+    <div class="pack-section-title">🎒 隨身包清單</div>
+    <div class="pack-list" id="pack-carry">
+      <label class="pack-item"><input type="checkbox" data-key="c0"><span>護照正本（全家人）</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="c1"><span>錢包（Richart 信用卡、當天所需瑞郎現金）</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="c2"><span>旅遊行程手冊：3本</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="c3"><span>筆</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="c4"><span>手機防掉落掛繩</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="c5"><span>大容量行動電源</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="c6"><span>無線耳機</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="c7"><span>隨身充電線</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="c8"><span>摺疊雨傘</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="c9"><span>保溫瓶</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="c10"><span>衛生紙</span></label>
+      <label class="pack-item"><input type="checkbox" data-key="c11"><span>濕紙巾</span></label>
+    </div>
+  </div>
+
 </div>
+
+<script>
+(function(){
+  // 載入已儲存狀態
+  document.querySelectorAll('.pack-item input[type=checkbox]').forEach(function(cb){
+    var k = 'pack_' + cb.dataset.key;
+    if(localStorage.getItem(k) === '1'){ cb.checked = true; cb.closest('.pack-item').classList.add('checked-item'); }
+    cb.addEventListener('change', function(){
+      localStorage.setItem(k, cb.checked ? '1' : '0');
+      cb.closest('.pack-item').classList.toggle('checked-item', cb.checked);
+    });
+  });
+})();
+function resetPacking(){
+  if(!confirm('確定要重置所有打包清單？')) return;
+  document.querySelectorAll('.pack-item input[type=checkbox]').forEach(function(cb){
+    cb.checked = false;
+    cb.closest('.pack-item').classList.remove('checked-item');
+    localStorage.removeItem('pack_' + cb.dataset.key);
+  });
+}
+</script>
 
 <!-- ══════════ 實用資訊 ══════════ -->
 <div class="section" id="tips">

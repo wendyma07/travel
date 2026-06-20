@@ -1,0 +1,299 @@
+<!DOCTYPE html><html lang="zh-Hant"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>提特里斯山 Titlis 冰川攻略</title>
+<style>
+:root{--navy:#1a2744;--navy2:#243460;--gold:#c9a84c;--gold-light:#f0d98a;--bg:#f5f3ee;--white:#fff;--border:#e0dcd2;--text:#2c2c2c;--muted:#7f8c8d;--blue:#2475b0;--green:#27ae60;--red:#c0392b;--teal:#0b9ab0;--done-bg:#eafaf1;--done-fg:#1e8449;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang TC","Heiti TC",sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7;}
+.top-bar{background:var(--navy);padding:0.6rem 1rem;}
+.back-btn{color:var(--gold);text-decoration:none;font-size:0.82rem;font-weight:600;}
+.hero{background:linear-gradient(135deg,#0b5563,#0d7a8a);color:white;padding:1.4rem 1rem 1rem;border-bottom:3px solid #a8eaf5;}
+.hero-emoji{font-size:2rem;margin-bottom:0.3rem;}
+.hero h1{font-size:1.3rem;font-weight:700;color:#a8eaf5;}
+.hero-sub{font-size:0.78rem;color:rgba(255,255,255,0.55);margin-top:0.2rem;}
+.tab-nav{display:flex;background:#0b5563;border-bottom:2px solid #a8eaf5;overflow-x:auto;scrollbar-width:none;}
+.tab-nav::-webkit-scrollbar{display:none;}
+.tab-btn{flex:1;padding:0.65rem 0.5rem;background:none;border:none;color:rgba(255,255,255,.55);font-size:0.78rem;cursor:pointer;white-space:nowrap;font-family:inherit;border-bottom:3px solid transparent;margin-bottom:-2px;text-align:center;}
+.tab-btn.active{color:#a8eaf5;border-bottom-color:#a8eaf5;}
+.tab-pane{display:none;padding:0.9rem;}
+.tab-pane.active{display:block;}
+.sec{background:var(--white);border-radius:12px;border:1px solid var(--border);margin-bottom:0.9rem;overflow:hidden;}
+.sec-hd{background:var(--navy);color:white;padding:0.65rem 1rem;font-weight:600;font-size:0.88rem;}
+.sec-bd{padding:0.75rem 1rem;}
+.row{display:grid;grid-template-columns:82px 1fr;gap:0.3rem 0.6rem;padding:0.5rem 0;border-bottom:1px solid var(--border);align-items:start;}
+.row:last-child{border-bottom:none;}
+.row-label{font-size:0.68rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;padding-top:.1rem;}
+.row-val{font-size:0.83rem;}
+.tblock{background:#e6f7fa;border-left:3px solid var(--teal);border-radius:0 6px 6px 0;padding:0.5rem 0.75rem;margin:0.3rem 0;font-size:0.82rem;line-height:1.7;}
+.tip{background:#fffbf0;border-left:4px solid var(--gold);padding:0.5rem 0.75rem;border-radius:0 8px 8px 0;margin:0.4rem 0;font-size:0.82rem;}
+.warn{background:#fdedec;border:1.5px solid var(--red);border-radius:8px;padding:0.6rem 0.8rem;margin:0.4rem 0;font-size:0.82rem;}
+.lnks{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.4rem;}
+a.ml{display:inline-flex;align-items:center;gap:.2rem;background:#e8f4fd;color:var(--blue);border:1px solid #c3dff5;border-radius:6px;padding:.18rem .5rem;font-size:.72rem;font-weight:600;text-decoration:none;}
+a.ml::before{content:"📍 ";}
+a.tl{display:inline-flex;align-items:center;gap:.2rem;background:#e6f7fa;color:#0b5563;border:1px solid #9adee8;border-radius:6px;padding:.18rem .5rem;font-size:.72rem;font-weight:600;text-decoration:none;}
+a.ol{display:inline-flex;align-items:center;gap:.2rem;background:#fef9e7;color:#7d6008;border:1px solid #e8d98a;border-radius:6px;padding:.18rem .5rem;font-size:.72rem;font-weight:600;text-decoration:none;}
+h3{font-size:0.83rem;font-weight:700;margin:0.6rem 0 0.25rem;color:var(--navy2);}
+p{font-size:0.82rem;margin-bottom:0.35rem;}
+ul,ol{padding-left:1.2rem;font-size:0.82rem;}
+li{margin-bottom:0.22rem;}
+table{width:100%;border-collapse:collapse;font-size:0.76rem;margin:0.5rem 0;}
+th,td{border:1px solid var(--border);padding:0.4rem 0.5rem;vertical-align:top;line-height:1.5;}
+th{background:var(--navy);color:white;font-weight:600;}
+tr:nth-child(even) td{background:#faf9f5;}
+.map-btn{display:flex;align-items:center;justify-content:center;gap:0.6rem;border-radius:12px;padding:0.85rem 1rem;font-size:0.92rem;font-weight:700;text-decoration:none;margin:0.5rem 0;color:white;background:var(--teal);}
+.act-card{background:var(--white);border-radius:10px;border:1px solid var(--border);margin-bottom:0.7rem;overflow:hidden;}
+.act-hd{display:flex;align-items:center;gap:0.5rem;padding:0.6rem 0.8rem;background:linear-gradient(135deg,#0b5563,#0d7a8a);}
+.act-emoji{font-size:1.3rem;}
+.act-title{color:#a8eaf5;font-weight:700;font-size:0.88rem;}
+.act-sub{color:rgba(255,255,255,.5);font-size:0.7rem;}
+.act-bd{padding:0.6rem 0.8rem;}
+</style>
+<script>
+function showTab(id,btn){
+  document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+window.addEventListener('DOMContentLoaded',function(){
+  var h=location.hash.replace('#','');
+  if(!h)return;
+  var pane=document.getElementById(h);
+  var btn=document.querySelector('.tab-btn[onclick*="\''+h+'\'"]');
+  if(pane&&btn){
+    document.querySelectorAll('.tab-pane').forEach(function(p){p.classList.remove('active');});
+    document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
+    pane.classList.add('active');
+    btn.classList.add('active');
+    pane.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+});
+</script>
+</head><body>
+
+<div class="top-bar"><a class="back-btn" href="../switzerland_travel_guide.html">← 返回行程總覽</a></div>
+
+<div class="hero">
+  <div class="hero-emoji">❄️</div>
+  <h1>提特里斯山 Mount Titlis</h1>
+  <div class="hero-sub">Engelberg · 3,238m · 旋轉纜車 · 冰川洞穴 · 夏天玩雪</div>
+</div>
+
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('overview',this)">🗺 概覽</button>
+  <button class="tab-btn" onclick="showTab('info',this)">ℹ️ 地點資訊</button>
+  <button class="tab-btn" onclick="showTab('transport',this)">🚂 交通</button>
+  <button class="tab-btn" onclick="showTab('detail',this)">📖 詳細資訊</button>
+</div>
+
+<!-- 概覽 -->
+<div id="overview" class="tab-pane active">
+  <div style="padding:0.9rem;">
+    <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Mount+Titlis+Engelberg+Switzerland" target="_blank">📍 在 Google Maps 中開啟</a>
+
+    <div class="sec">
+      <div class="sec-hd">❄️ Titlis 四大亮點</div>
+      <div class="sec-bd">
+        <div class="act-card">
+          <div class="act-hd">
+            <div class="act-emoji">🔄</div>
+            <div><div class="act-title">Rotair 旋轉纜車</div><div class="act-sub">世界第一座旋轉空中纜車 · 360° 全景</div></div>
+          </div>
+          <div class="act-bd">
+            <p>從 Stand（2,450m）到 Titlis 山頂（3,020m），搭乘全球第一座旋轉纜車，車廂在空中緩緩旋轉 360°，冰川與山峰景色盡收眼底，約 5 分鐘。</p>
+            <div class="row"><div class="row-label">費用</div><div class="row-val">含在纜車總票價內，無需另購</div></div>
+            <div class="row"><div class="row-label">建議</div><div class="row-val">站在纜車中央隨旋轉拍全景影片</div></div>
+          </div>
+        </div>
+
+        <div class="act-card">
+          <div class="act-hd">
+            <div class="act-emoji">🧊</div>
+            <div><div class="act-title">Glacier Cave 冰川洞穴</div><div class="act-sub">深入千年冰川內部 · 常年 0°C</div></div>
+          </div>
+          <div class="act-bd">
+            <p>在 Titlis 山頂深入冰川內部，藍色冰牆與冰柱近在眼前，常年維持 0°C 以下，是歐洲海拔最高的冰穴之一。步行約 200 公尺，全程室內。</p>
+            <div class="row"><div class="row-label">費用</div><div class="row-val">含在纜車票內，免費參觀</div></div>
+            <div class="row"><div class="row-label">建議</div><div class="row-val">帶薄手套，洞內溫度很低</div></div>
+          </div>
+        </div>
+
+        <div class="act-card">
+          <div class="act-hd">
+            <div class="act-emoji">🚶</div>
+            <div><div class="act-title">Cliff Walk 懸崖步道</div><div class="act-sub">懸掛冰川峭壁 · 透明玻璃底板</div></div>
+          </div>
+          <div class="act-bd">
+            <p>從山頂站延伸出去的鐵橋懸掛在冰川峭壁上，腳下是透明玻璃，往下看是萬丈深淵，全長約 100 公尺，是拍照打卡必去點。</p>
+            <div class="row"><div class="row-label">費用</div><div class="row-val">免費（含纜車票）</div></div>
+            <div class="row"><div class="row-label">注意</div><div class="row-val">風大時部分路段封閉，請依現場指示</div></div>
+          </div>
+        </div>
+
+        <div class="act-card">
+          <div class="act-hd">
+            <div class="act-emoji">❄️</div>
+            <div><div class="act-title">夏天玩雪 Snow Park</div><div class="act-sub">全年積雪 · 雪橇 · 雪地活動</div></div>
+          </div>
+          <div class="act-bd">
+            <p>Titlis 山頂全年覆雪，夏天也能玩雪！山頂設有雪橇坡道與雪地活動區，孩子可以堆雪人、打雪仗，是台灣孩子最難忘的體驗之一。</p>
+            <div class="row"><div class="row-label">費用</div><div class="row-val">雪地活動免費；雪橇租借 CHF 5–10</div></div>
+            <div class="row"><div class="row-label">建議</div><div class="row-val">帶防水外套與手套，雪地很濕</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tip">💡 建議行程：纜車上山 → Rotair 旋轉 → 冰川洞穴 → Cliff Walk → 午餐 → 玩雪 → 下午纜車下山，全程約 4–5 小時</div>
+  </div>
+</div>
+
+<!-- 地點資訊 -->
+<div id="info" class="tab-pane">
+  <div style="padding:0.9rem;">
+    <div class="sec">
+      <div class="sec-hd">📍 Titlis 纜車站（Engelberg）</div>
+      <div class="sec-bd">
+        <div class="row"><div class="row-label">地址</div><div class="row-val">Titlisbahnen, Engelberg-Trübsee-Titlis, 6390 Engelberg, Switzerland</div></div>
+        <div class="row"><div class="row-label">山頂海拔</div><div class="row-val">Titlis 3,238m｜山下 Engelberg 1,020m</div></div>
+        <div class="row"><div class="row-label">營業時間</div><div class="row-val">08:30–17:00（夏季）｜每 30 分鐘一班</div></div>
+        <div class="row"><div class="row-label">官網</div><div class="row-val"><a href="https://www.titlis.ch" target="_blank" style="color:var(--teal)">titlis.ch</a></div></div>
+        <div class="lnks" style="margin-top:0.5rem;">
+          <a class="ml" href="https://www.google.com/maps/search/?api=1&query=Titlis+Engelberg+cable+car+station" target="_blank">Google Maps</a>
+          <a class="ol" href="https://www.titlis.ch/en/tickets" target="_blank">📖 購票官網</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-hd">💰 票價一覽（2025）</div>
+      <div class="sec-bd">
+        <table>
+          <thead><tr><th>票種</th><th>成人</th><th>兒童（6-15）</th></tr></thead>
+          <tbody>
+            <tr><td>Engelberg → Titlis 來回</td><td>CHF 96</td><td>CHF 48</td></tr>
+            <tr><td>Swiss Travel Pass</td><td>CHF 48（5折）</td><td>CHF 48</td></tr>
+            <tr><td>冰川洞穴</td><td>免費</td><td>免費</td></tr>
+            <tr><td>Cliff Walk</td><td>免費</td><td>免費</td></tr>
+            <tr><td>Ice Flyer 空中椅纜</td><td>CHF 12</td><td>CHF 6</td></tr>
+          </tbody>
+        </table>
+        <div class="tip">💡 Swiss Travel Pass 持有人纜車票 5 折（CHF 48），兒童搭同行成人免費</div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-hd">🍽️ 山上餐廳</div>
+      <div class="sec-bd">
+        <div class="row"><div class="row-label">Titlis 山頂</div><div class="row-val">Ice Flyer Panorama Restaurant，3,020m，瑞士料理與熱食，人均 CHF 25–40</div></div>
+        <div class="row"><div class="row-label">Trübsee 中站</div><div class="row-val">Trübsee Alpine Lodge，湖邊景觀餐廳，適合下山後用餐</div></div>
+        <div class="row"><div class="row-label">建議</div><div class="row-val">山頂 11:00 前或 13:30 後錯峰用餐</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 交通 -->
+<div id="transport" class="tab-pane">
+  <div style="padding:0.9rem;">
+    <div class="tip">🎉 從琉森到 Engelberg 只要 <strong>45 分鐘</strong>直達，是三個選項中最近的！</div>
+
+    <div class="sec">
+      <div class="sec-hd">🚂 去程：琉森 → Titlis 山頂</div>
+      <div class="sec-bd">
+        <div class="tblock"><strong>08:30</strong> 🚶 步行至琉森車站（5 分鐘）</div>
+        <div class="tblock">
+          <strong>08:42</strong> 🚂 琉森 → Engelberg（Zentralbahn 直達，<strong>45 分鐘</strong>）<br>
+          <span style="font-size:0.78rem;color:#0b5563;">班次密集，約每小時 2–3 班，含在 Swiss Travel Pass 內</span>
+        </div>
+        <div class="tblock">
+          <strong>09:27</strong> 🚡 Engelberg 站 → 步行 5 分鐘至纜車站 → 搭三段纜車上山<br>
+          <span style="font-size:0.78rem;color:#0b5563;">Engelberg → Gerschnialp → Trübsee → Stand → Rotair → Titlis（共約 45 分鐘）</span>
+        </div>
+        <div class="tblock"><strong>10:15</strong> ✅ 抵達 Titlis 山頂（3,238m）</div>
+        <div class="lnks" style="margin-top:0.6rem;">
+          <a class="ml" href="https://www.google.com/maps/dir/?api=1&destination=Titlis+Engelberg&travelmode=transit" target="_blank">Google Maps 導航</a>
+          <a class="tl" href="https://www.sbb.ch/en" target="_blank">🚆 SBB 查時刻</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-hd">🏔 山上建議行程（約 4–5 小時）</div>
+      <div class="sec-bd">
+        <div class="tblock"><strong>10:15–10:35</strong> 🧊 冰川洞穴探險</div>
+        <div class="tblock"><strong>10:35–10:55</strong> 🚶 Cliff Walk 懸崖步道 + 拍照</div>
+        <div class="tblock"><strong>11:00–12:00</strong> 🍽️ 山頂餐廳午餐（錯峰）</div>
+        <div class="tblock"><strong>12:00–13:30</strong> ❄️ Snow Park 玩雪、堆雪人、雪橇</div>
+        <div class="tblock"><strong>13:30</strong> 🔄 搭 Rotair 旋轉纜車下至 Stand，再轉纜車下山</div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-hd">🚂 回程：Engelberg → 琉森</div>
+      <div class="sec-bd">
+        <div class="tblock"><strong>15:00</strong> 🚂 Engelberg → 琉森（Zentralbahn，45 分鐘）</div>
+        <div class="tblock"><strong>15:45</strong> ✅ 抵達琉森車站，步行回飯店，下午 4 點前輕鬆回到市區</div>
+        <div class="tip">💡 比皮拉圖斯 Golden Round Trip 早回 1–2 小時，適合行程較緊的日子</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 詳細資訊 -->
+<div id="detail" class="tab-pane">
+  <div style="padding:0.9rem;">
+    <div class="sec">
+      <div class="sec-hd">🆚 三山比較</div>
+      <div class="sec-bd">
+        <table>
+          <thead><tr><th>項目</th><th>🏔 皮拉圖斯</th><th>⚡ 菲斯特</th><th>❄️ 提特里斯</th></tr></thead>
+          <tbody>
+            <tr><td>風格</td><td>靜態大景</td><td>極限冒險</td><td>冰川奇景</td></tr>
+            <tr><td>孩子亮點</td><td>火車坐車</td><td>卡丁車飛索</td><td>夏天玩雪❄️</td></tr>
+            <tr><td>交通距離</td><td>~1.5 小時</td><td>~2 小時</td><td>✅ 45 分鐘最近</td></tr>
+            <tr><td>票價</td><td>含 STP</td><td>活動另購</td><td>CHF 48（STP）</td></tr>
+            <tr><td>海拔</td><td>2,132m</td><td>2,168m</td><td>✅ 3,238m 最高</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-hd">⚠️ 注意事項</div>
+      <div class="sec-bd">
+        <div class="warn">⛅ 山頂常有雲霧，建議出發前查 <a href="https://www.titlis.ch/en/weather-webcam" target="_blank" style="color:var(--red)">Titlis 即時天氣</a></div>
+        <h3>穿著建議</h3>
+        <ul>
+          <li>山頂氣溫約 5–10°C（夏季），比琉森低 15°C 以上</li>
+          <li>玩雪時需防水外套、手套、防水褲</li>
+          <li>冰川洞穴溫度在 0°C 以下，厚外套必備</li>
+        </ul>
+        <h3>購票建議</h3>
+        <ul>
+          <li>建議在 <a href="https://www.titlis.ch/en/tickets" target="_blank" style="color:var(--teal)">titlis.ch</a> 官網預購，尖峰期排隊時間可長達 30–45 分鐘</li>
+          <li>Swiss Travel Pass 持有人現場出示即可，無需預購</li>
+          <li>Family Card 兒童不適用本項目，兒童票 CHF 48</li>
+        </ul>
+        <h3>最佳時段</h3>
+        <ul>
+          <li>09:00–11:00 抵達山頂人最少</li>
+          <li>下午 14:00 後雲霧較多，建議上午前往</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-hd">📸 拍攝重點</div>
+      <div class="sec-bd">
+        <ul>
+          <li><strong>Rotair 旋轉纜車</strong>：站在中央跟著旋轉，錄 360° 環景影片</li>
+          <li><strong>冰川洞穴</strong>：開啟 iPhone 夜間模式，拍藍色冰牆紋路</li>
+          <li><strong>Cliff Walk</strong>：低角度拍腳下透明地板，背景冰川峭壁</li>
+          <li><strong>玩雪</strong>：用慢動作錄孩子打雪仗，夏裝配白雪的對比感超強</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body></html>
