@@ -113,6 +113,7 @@
 </style>
 </head>
 <body>
+<div id="app" style="overflow-x:hidden;width:100%;max-width:100vw;position:relative;">
 
 <!-- Header -->
 <div class="header">
@@ -502,6 +503,10 @@ function switchTab(name) {
   document.querySelectorAll('.page').forEach(p => {
     p.classList.toggle('active', p.id === 'page-' + name);
   });
+  // iOS Safari: keyboard dismissal can leave horizontal scroll offset — reset it
+  window.scrollTo(0, 0);
+  document.documentElement.scrollLeft = 0;
+  document.body.scrollLeft = 0;
 }
 
 function initCatDropdowns() {
@@ -555,5 +560,6 @@ async function init() {
 
 init().catch(console.error);
 </script>
+</div><!-- #app -->
 </body>
 </html>
