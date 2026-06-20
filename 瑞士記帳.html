@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇨🇭 瑞士旅遊記帳</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #f0f2f5;
+    --card: #ffffff;
+    --primary: #e63946;
+    --primary-light: #fff0f1;
+    --text: #1a1a2e;
+    --sub: #6b7280;
+    --border: #e5e7eb;
+    --green: #10b981;
+    --yellow: #f59e0b;
+    --red: #ef4444;
+    --shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  body { background: var(--bg); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: var(--text); min-height: 100vh; padding-bottom: 100px; }
+
+  /* Header */
+  .header { background: var(--primary); color: white; padding: 20px 16px 28px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+  .header .sub { font-size: 13px; opacity: 0.8; }
+  .summary-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
+  .s-card { background: rgba(255,255,255,0.15); border-radius: 12px; padding: 12px; }
+  .s-card .label { font-size: 11px; opacity: 0.85; margin-bottom: 4px; }
+  .s-card .value { font-size: 20px; font-weight: 700; }
+  .s-card .value.small { font-size: 15px; }
+
+  /* Per-person block */
+  .per-person-block { background: rgba(0,0,0,0.15); border-radius: 12px; padding: 12px; margin-top: 10px; }
+  .pp-label { font-size: 11px; font-weight: 600; opacity: 0.8; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .pp-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .pp-card { background: rgba(255,255,255,0.12); border-radius: 8px; padding: 8px 10px; }
+  .pp-card .label { font-size: 10px; opacity: 0.85; margin-bottom: 3px; }
+  .pp-card .value { font-size: 14px; font-weight: 700; }
+
+  /* Exchange rate bar */
+  .rate-bar { background: var(--card); padding: 10px 16px; display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--sub); border-bottom: 1px solid var(--border); }
+  .rate-bar input { width: 60px; border: 1px solid var(--border); border-radius: 6px; padding: 3px 6px; font-size: 13px; text-align: center; }
+  .rate-bar label { font-weight: 500; color: var(--text); }
+
+  /* Overall progress */
+  .progress-wrap { padding: 0 16px; margin-top: -14px; }
+  .progress-bar-outer { background: rgba(255,255,255,0.35); border-radius: 99px; height: 8px; overflow: hidden; }
+  .progress-bar-inner { height: 100%; border-radius: 99px; background: white; transition: width 0.4s; }
+
+  /* Tab nav */
+  .tabs { display: flex; background: var(--card); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10; }
+  .tab { flex: 1; padding: 12px; text-align: center; font-size: 13px; font-weight: 500; color: var(--sub); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; }
+  .tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+  /* Section */
+  .section { padding: 16px; }
+  .section-title { font-size: 13px; font-weight: 600; color: var(--sub); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+
+  /* Category cards */
+  .cat-card { background: var(--card); border-radius: 14px; padding: 14px; margin-bottom: 10px; box-shadow: var(--shadow); }
+  .cat-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+  .cat-name { font-size: 15px; font-weight: 600; }
+  .cat-amounts { text-align: right; }
+  .cat-spent { font-size: 16px; font-weight: 700; }
+  .cat-budget { font-size: 11px; color: var(--sub); margin-top: 1px; }
+  .cat-bar-outer { background: var(--bg); border-radius: 99px; height: 6px; overflow: hidden; margin-bottom: 6px; }
+  .cat-bar-inner { height: 100%; border-radius: 99px; transition: width 0.4s; }
+  .bar-ok { background: var(--green); }
+  .bar-warn { background: var(--yellow); }
+  .bar-over { background: var(--red); }
+  .cat-footer { display: flex; justify-content: space-between; font-size: 11px; color: var(--sub); }
+
+  /* Add form */
+  .add-form { background: var(--card); border-radius: 14px; padding: 16px; box-shadow: var(--shadow); }
+  .form-row { margin-bottom: 14px; }
+  .form-row label { display: block; font-size: 12px; font-weight: 600; color: var(--sub); margin-bottom: 5px; }
+  .form-row input, .form-row select, .form-row textarea {
+    width: 100%; border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; font-size: 15px; color: var(--text); background: var(--bg); outline: none; transition: border 0.2s;
+  }
+  .form-row input:focus, .form-row select:focus { border-color: var(--primary); background: white; }
+  .currency-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .currency-hint { font-size: 11px; color: var(--sub); margin-top: 4px; }
+  .btn-add { width: 100%; padding: 14px; background: var(--primary); color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 4px; }
+  .btn-add:active { opacity: 0.85; }
+
+  /* Log */
+  .log-item { background: var(--card); border-radius: 12px; padding: 12px 14px; margin-bottom: 8px; box-shadow: var(--shadow); display: flex; justify-content: space-between; align-items: flex-start; }
+  .log-left .log-cat { font-size: 11px; color: var(--sub); margin-bottom: 2px; }
+  .log-left .log-note { font-size: 14px; font-weight: 500; }
+  .log-left .log-date { font-size: 11px; color: var(--sub); margin-top: 2px; }
+  .log-right { text-align: right; }
+  .log-right .log-nt { font-size: 15px; font-weight: 700; color: var(--primary); }
+  .log-right .log-chf { font-size: 11px; color: var(--sub); }
+  .log-right .btn-del { font-size: 11px; color: var(--sub); background: none; border: none; cursor: pointer; margin-top: 4px; display: block; margin-left: auto; }
+  .log-right .btn-del:hover { color: var(--red); }
+
+  .empty-state { text-align: center; padding: 40px 20px; color: var(--sub); }
+  .empty-state .icon { font-size: 40px; margin-bottom: 12px; }
+  .empty-state p { font-size: 14px; }
+
+  /* Page visibility */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* Tag: prepaid */
+  .tag-prepaid { display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 99px; background: #dbeafe; color: #1d4ed8; font-weight: 600; margin-left: 6px; vertical-align: middle; }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <h1>🇨🇭 瑞士旅遊記帳 2026</h1>
+  <div class="sub">6/27 – 7/7 · 3 人</div>
+  <div class="summary-cards">
+    <div class="s-card">
+      <div class="label">總預算</div>
+      <div class="value small" id="totalBudget">—</div>
+    </div>
+    <div class="s-card">
+      <div class="label">已花費</div>
+      <div class="value small" id="totalSpent">—</div>
+    </div>
+    <div class="s-card" style="grid-column: span 2;">
+      <div class="label">剩餘預算</div>
+      <div class="value" id="totalLeft">—</div>
+    </div>
+  </div>
+  <div class="per-person-block">
+    <div class="pp-label">👤 每人分攤</div>
+    <div class="pp-cards">
+      <div class="pp-card">
+        <div class="label">每人總預算</div>
+        <div class="value small" id="perPersonBudget">—</div>
+      </div>
+      <div class="pp-card">
+        <div class="label">每人已花費</div>
+        <div class="value small" id="perPersonSpent">—</div>
+      </div>
+      <div class="pp-card">
+        <div class="label">每人剩餘</div>
+        <div class="value small" id="perPerson">—</div>
+      </div>
+    </div>
+  </div>
+  <div class="progress-wrap" style="margin-top:14px;">
+    <div class="progress-bar-outer">
+      <div class="progress-bar-inner" id="mainBar" style="width:0%"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:11px;opacity:0.8;margin-top:4px;">
+      <span>0%</span>
+      <span id="mainPct">0% 使用</span>
+      <span>100%</span>
+    </div>
+  </div>
+</div>
+
+<!-- Exchange rate -->
+<div class="rate-bar">
+  <label>CHF 匯率：1 CHF =</label>
+  <input type="number" id="rateInput" value="38" min="1" step="0.1">
+  <span>NT$</span>
+</div>
+
+<!-- Tabs -->
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('overview')">📊 總覽</div>
+  <div class="tab" onclick="switchTab('add')">➕ 記帳</div>
+  <div class="tab" onclick="switchTab('log')">📋 明細</div>
+</div>
+
+<!-- Overview page -->
+<div class="page active" id="page-overview">
+  <div class="section">
+    <div class="section-title">類別預算</div>
+    <div id="catList"></div>
+  </div>
+</div>
+
+<!-- Add page -->
+<div class="page" id="page-add">
+  <div class="section">
+    <div class="section-title">新增支出</div>
+    <div class="add-form">
+      <div class="form-row">
+        <label>類別</label>
+        <select id="f-cat"></select>
+      </div>
+      <div class="form-row">
+        <label>金額</label>
+        <div class="currency-row">
+          <div>
+            <input type="number" id="f-nt" placeholder="台幣 NT$" min="0" oninput="syncCHF()">
+            <div class="currency-hint">NT$（台幣）</div>
+          </div>
+          <div>
+            <input type="number" id="f-chf" placeholder="法郎 CHF" min="0" step="0.1" oninput="syncNT()">
+            <div class="currency-hint">CHF（自動換算）</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <label>備註</label>
+        <input type="text" id="f-note" placeholder="例：Lucide 餐廳晚餐">
+      </div>
+      <div class="form-row">
+        <label>日期</label>
+        <input type="date" id="f-date">
+      </div>
+      <button class="btn-add" onclick="addExpense()">記帳</button>
+    </div>
+  </div>
+</div>
+
+<!-- Log page -->
+<div class="page" id="page-log">
+  <div class="section">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+      <div class="section-title" style="margin:0">支出明細</div>
+      <select id="logFilter" onchange="renderLog()" style="border:1px solid var(--border);border-radius:8px;padding:4px 8px;font-size:12px;background:white;">
+        <option value="">全部類別</option>
+      </select>
+    </div>
+    <div id="logList"></div>
+  </div>
+</div>
+
+<script>
+const CATEGORIES = [
+  { id: 'flight',    name: '✈️ 機票',       budget: 140895 },
+  { id: 'hotel',     name: '🏨 住宿',        budget: 123069 },
+  { id: 'transport', name: '🚆 境內交通',     budget: 48181  },
+  { id: 'food',      name: '🍽 餐飲',        budget: 77690  },
+  { id: 'tickets',   name: '🎟 景點門票',     budget: 8862   },
+  { id: 'misc_chf',  name: '🛍 雜支(海外)',   budget: 25452  },
+  { id: 'cat',       name: '🐱 貓旅館',      budget: 20000  },
+  { id: 'insurance', name: '🧳 旅平險',       budget: 12000  },
+  { id: 'airport',   name: '🚕 機場接送',     budget: 2500   },
+  { id: 'esim',      name: '📱 eSIM',        budget: 2280   },
+  { id: 'misc_nt',   name: '🛍 雜支(台幣)',   budget: 52646  },
+];
+
+// Pre-paid expenses from the spreadsheet
+const PREPAID = [
+  { id: 'p1',  cat: 'flight',    nt: 133236, chf: 0, note: '機票票價 EK (3人)', date: '2025-12-01', prepaid: true },
+  { id: 'p2',  cat: 'flight',    nt: 7659,   chf: 0, note: '機票手續費', date: '2025-12-01', prepaid: true },
+  { id: 'p3',  cat: 'transport', nt: 19475,  chf: 0, note: 'Swiss Travel Pass 15天', date: '2025-12-27', prepaid: true },
+  { id: 'p4',  cat: 'transport', nt: 2392,   chf: 0,  note: '少女峰座位預訂費 (3人×2段)', date: '2026-01-06', prepaid: true },
+  { id: 'p5',  cat: 'transport', nt: 605,    chf: 0, note: '蘇黎世→策馬特座位預訂', date: '2026-05-19', prepaid: true },
+  { id: 'p6',  cat: 'tickets',   nt: 1475,   chf: 0,  note: 'Lindt 巧克力博物館 (3人)', date: '2025-12-27', prepaid: true },
+  { id: 'p7',  cat: 'cat',       nt: 7410,   chf: 0, note: '貓旅館 (第1期)', date: '2026-05-24', prepaid: true },
+  { id: 'p8',  cat: 'cat',       nt: 7410,   chf: 0, note: '貓旅館 (第2期)', date: '2026-05-24', prepaid: true },
+  { id: 'p9',  cat: 'insurance', nt: 12428,  chf: 0, note: '安達旅平險 (3人)', date: '2026-05-22', prepaid: true },
+  { id: 'p10', cat: 'airport',   nt: 1189,   chf: 0, note: '肯譯機場接送 (去程)', date: '2026-05-24', prepaid: true },
+  { id: 'p11', cat: 'airport',   nt: 1189,   chf: 0, note: '肯譯機場接送 (回程)', date: '2026-05-24', prepaid: true },
+  { id: 'p12', cat: 'misc_nt',   nt: 39990,  chf: 0, note: '相機/手機', date: '2026-01-24', prepaid: true },
+  { id: 'p13', cat: 'misc_nt',   nt: 3522,   chf: 0, note: '行動充電器 x2', date: '2026-02-06', prepaid: true },
+  { id: 'p14', cat: 'misc_nt',   nt: 3448,   chf: 0, note: 'AirTag', date: '2026-05-22', prepaid: true },
+  { id: 'p15', cat: 'misc_nt',   nt: 1080,   chf: 0, note: '手機殼', date: '2026-01-31', prepaid: true },
+  { id: 'p16', cat: 'misc_nt',   nt: 1106,   chf: 0, note: '印資料', date: '2026-06-02', prepaid: true },
+  { id: 'p17', cat: 'misc_nt',   nt: 3500,   chf: 0, note: '隨身包', date: '2026-06-01', prepaid: true },
+];
+
+// State
+let rate = 38;
+let expenses = []; // user-added
+
+function save() {
+  localStorage.setItem('chExpenses', JSON.stringify(expenses));
+  localStorage.setItem('chRate', rate);
+}
+function load() {
+  const saved = localStorage.getItem('chExpenses');
+  if (saved) expenses = JSON.parse(saved);
+  const savedRate = localStorage.getItem('chRate');
+  if (savedRate) rate = parseFloat(savedRate);
+}
+
+function allExpenses() {
+  return [...PREPAID, ...expenses];
+}
+
+function fmt(n) {
+  return 'NT$' + Math.round(n).toLocaleString();
+}
+
+function getRate() {
+  return parseFloat(document.getElementById('rateInput').value) || 38;
+}
+
+function spentByCategory(catId) {
+  return allExpenses()
+    .filter(e => e.cat === catId)
+    .reduce((sum, e) => sum + (e.nt || 0) + (e.chf || 0) * getRate(), 0);
+}
+
+function totalBudget() {
+  return CATEGORIES.reduce((s, c) => s + c.budget, 0);
+}
+
+function totalSpent() {
+  return CATEGORIES.reduce((s, c) => s + spentByCategory(c.id), 0);
+}
+
+function barColor(pct) {
+  if (pct >= 100) return 'bar-over';
+  if (pct >= 80)  return 'bar-warn';
+  return 'bar-ok';
+}
+
+function renderHeader() {
+  const budget = totalBudget();
+  const spent  = totalSpent();
+  const left   = budget - spent;
+  const pct    = Math.min(100, (spent / budget) * 100);
+  document.getElementById('totalBudget').textContent      = fmt(budget);
+  document.getElementById('totalSpent').textContent       = fmt(spent);
+  document.getElementById('perPersonBudget').textContent  = fmt(budget / 3);
+  document.getElementById('perPersonSpent').textContent   = fmt(spent / 3);
+  document.getElementById('totalLeft').textContent        = fmt(left);
+  document.getElementById('perPerson').textContent        = fmt(left / 3);
+  document.getElementById('mainBar').style.width     = pct + '%';
+  document.getElementById('mainPct').textContent     = Math.round(pct) + '% 使用';
+}
+
+function renderOverview() {
+  const r = getRate();
+  const html = CATEGORIES.map(c => {
+    const spent = spentByCategory(c.id);
+    const pct   = Math.min(110, (spent / c.budget) * 100);
+    const left  = c.budget - spent;
+    const cls   = barColor((spent / c.budget) * 100);
+    const leftStr = left >= 0
+      ? `<span style="color:var(--green)">剩 ${fmt(left)}</span>`
+      : `<span style="color:var(--red)">超支 ${fmt(-left)}</span>`;
+    return `<div class="cat-card">
+      <div class="cat-header">
+        <div class="cat-name">${c.name}</div>
+        <div class="cat-amounts">
+          <div class="cat-spent" style="color:${spent>c.budget?'var(--red)':'var(--text)'}">${fmt(spent)}</div>
+          <div class="cat-budget">預算 ${fmt(c.budget)}</div>
+        </div>
+      </div>
+      <div class="cat-bar-outer"><div class="cat-bar-inner ${cls}" style="width:${pct}%"></div></div>
+      <div class="cat-footer">
+        ${leftStr}
+        <span>${Math.round((spent/c.budget)*100)}%</span>
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('catList').innerHTML = html;
+}
+
+function renderLog() {
+  const filter = document.getElementById('logFilter').value;
+  const r = getRate();
+  const all = allExpenses()
+    .filter(e => !filter || e.cat === filter)
+    .sort((a, b) => b.date.localeCompare(a.date));
+
+  if (all.length === 0) {
+    document.getElementById('logList').innerHTML = `
+      <div class="empty-state"><div class="icon">🧾</div><p>還沒有支出紀錄</p></div>`;
+    return;
+  }
+
+  const catMap = {};
+  CATEGORIES.forEach(c => catMap[c.id] = c.name);
+
+  const html = all.map(e => {
+    const ntTotal = (e.nt || 0) + (e.chf || 0) * r;
+    const chfStr  = e.chf ? `CHF ${e.chf}` : '';
+    const prepaidTag = e.prepaid ? '<span class="tag-prepaid">出發前</span>' : '';
+    const delBtn = e.prepaid ? '' :
+      `<button class="btn-del" onclick="delExpense('${e.id}')">刪除</button>`;
+    return `<div class="log-item">
+      <div class="log-left">
+        <div class="log-cat">${catMap[e.cat] || e.cat}${prepaidTag}</div>
+        <div class="log-note">${e.note || '（無備註）'}</div>
+        <div class="log-date">${e.date}</div>
+      </div>
+      <div class="log-right">
+        <div class="log-nt">${fmt(ntTotal)}</div>
+        <div class="log-chf">${chfStr}</div>
+        ${delBtn}
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('logList').innerHTML = html;
+}
+
+function renderAll() {
+  renderHeader();
+  renderOverview();
+  renderLog();
+}
+
+// Form helpers
+function syncCHF() {
+  const nt = parseFloat(document.getElementById('f-nt').value);
+  if (!isNaN(nt)) {
+    document.getElementById('f-chf').value = (nt / getRate()).toFixed(2);
+  } else {
+    document.getElementById('f-chf').value = '';
+  }
+}
+function syncNT() {
+  const chf = parseFloat(document.getElementById('f-chf').value);
+  if (!isNaN(chf)) {
+    document.getElementById('f-nt').value = Math.round(chf * getRate());
+  } else {
+    document.getElementById('f-nt').value = '';
+  }
+}
+
+function addExpense() {
+  const cat  = document.getElementById('f-cat').value;
+  const nt   = parseFloat(document.getElementById('f-nt').value) || 0;
+  const chf  = parseFloat(document.getElementById('f-chf').value) || 0;
+  const note = document.getElementById('f-note').value.trim();
+  const date = document.getElementById('f-date').value;
+
+  if (!cat) { alert('請選擇類別'); return; }
+  if (nt === 0 && chf === 0) { alert('請輸入金額'); return; }
+  if (!date) { alert('請選擇日期'); return; }
+
+  const entry = {
+    id: 'u' + Date.now(),
+    cat, note, date,
+    nt: nt,
+    chf: chf,
+    prepaid: false,
+  };
+  expenses.push(entry);
+  save();
+
+  // Reset form
+  document.getElementById('f-nt').value = '';
+  document.getElementById('f-chf').value = '';
+  document.getElementById('f-note').value = '';
+  document.getElementById('f-date').value = new Date().toISOString().slice(0,10);
+
+  renderAll();
+  switchTab('overview');
+}
+
+function delExpense(id) {
+  if (!confirm('確定要刪除這筆紀錄？')) return;
+  expenses = expenses.filter(e => e.id !== id);
+  save();
+  renderAll();
+}
+
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach((t,i) => {
+    t.classList.toggle('active', ['overview','add','log'][i] === name);
+  });
+  document.querySelectorAll('.page').forEach(p => {
+    p.classList.toggle('active', p.id === 'page-' + name);
+  });
+}
+
+function initCatDropdowns() {
+  const opts = CATEGORIES.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+  document.getElementById('f-cat').innerHTML = '<option value="">請選擇類別</option>' + opts;
+
+  const filterOpts = CATEGORIES.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+  document.getElementById('logFilter').innerHTML = '<option value="">全部類別</option>' + filterOpts;
+}
+
+function init() {
+  load();
+  rate = parseFloat(localStorage.getItem('chRate')) || 38;
+  document.getElementById('rateInput').value = rate;
+  document.getElementById('f-date').value = new Date().toISOString().slice(0,10);
+  initCatDropdowns();
+  renderAll();
+
+  document.getElementById('rateInput').addEventListener('input', () => {
+    rate = parseFloat(document.getElementById('rateInput').value) || 38;
+    save();
+    renderAll();
+  });
+}
+
+init();
+</script>
+</body>
+</html>
