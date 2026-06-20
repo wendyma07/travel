@@ -361,7 +361,12 @@ function renderLog() {
   const r = getRate();
   const all = allExpenses()
     .filter(e => !filter || e.cat === filter)
-    .sort((a, b) => b.date.localeCompare(a.date));
+    .sort((a, b) => {
+      const d = b.date.localeCompare(a.date);
+      if (d !== 0) return d;
+      // Same date: newer user entries (id='u'+timestamp) before prepaid (id='p1'..)
+      return b.id > a.id ? 1 : b.id < a.id ? -1 : 0;
+    });
 
   if (all.length === 0) {
     document.getElementById('logList').innerHTML = `
