@@ -534,7 +534,13 @@ async function init() {
       expenses = sheetData.map(e => {
         if (e.date && !/^\d{4}-\d{2}-\d{2}$/.test(e.date)) {
           const d = new Date(e.date);
-          e.date = isNaN(d) ? e.date : d.toISOString().slice(0, 10);
+          if (!isNaN(d)) {
+            // Use local date components to avoid UTC offset shifting the day
+            const y = d.getFullYear();
+            const m = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            e.date = `${y}-${m}-${day}`;
+          }
         }
         return e;
       });
