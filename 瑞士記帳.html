@@ -401,7 +401,10 @@ function renderAll() {
 }
 
 // Form helpers
+let _lastField = 'nt'; // track which currency field the user typed in
+
 function syncCHF() {
+  _lastField = 'nt';
   const nt = parseFloat(document.getElementById('f-nt').value);
   if (!isNaN(nt)) {
     document.getElementById('f-chf').value = (nt / getRate()).toFixed(2);
@@ -410,6 +413,7 @@ function syncCHF() {
   }
 }
 function syncNT() {
+  _lastField = 'chf';
   const chf = parseFloat(document.getElementById('f-chf').value);
   if (!isNaN(chf)) {
     document.getElementById('f-nt').value = Math.round(chf * getRate());
@@ -420,14 +424,20 @@ function syncNT() {
 
 function addExpense() {
   const cat  = document.getElementById('f-cat').value;
-  const nt   = parseFloat(document.getElementById('f-nt').value) || 0;
-  const chf  = parseFloat(document.getElementById('f-chf').value) || 0;
   const note = document.getElementById('f-note').value.trim();
   const date = document.getElementById('f-date').value;
 
   if (!cat) { alert('請選擇類別'); return; }
-  if (nt === 0 && chf === 0) { alert('請輸入金額'); return; }
   if (!date) { alert('請選擇日期'); return; }
+
+  // Only store the field the user actually typed — avoid double-counting
+  let nt = 0, chf = 0;
+  if (_lastField === 'chf') {
+    chf = parseFloat(document.getElementById('f-chf').value) || 0;
+  } else {
+    nt = parseFloat(document.getElementById('f-nt').value) || 0;
+  }
+  if (nt === 0 && chf === 0) { alert('請輸入金額'); return; }
 
   const entry = {
     id: 'u' + Date.now(),
@@ -444,6 +454,7 @@ function addExpense() {
   document.getElementById('f-chf').value = '';
   document.getElementById('f-note').value = '';
   document.getElementById('f-date').value = new Date().toISOString().slice(0,10);
+  _lastField = 'nt';
 
   renderAll();
   switchTab('overview');
