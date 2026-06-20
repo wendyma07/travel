@@ -53,7 +53,7 @@
 
   /* Tab nav */
   .tabs { display: flex; background: var(--card); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10; }
-  .tab { flex: 1; padding: 12px; text-align: center; font-size: 13px; font-weight: 500; color: var(--sub); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; }
+  .tab { flex: 1; min-width: 0; padding: 12px 4px; text-align: center; font-size: 13px; font-weight: 500; color: var(--sub); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .tab.active { color: var(--primary); border-bottom-color: var(--primary); }
 
   /* Section */
@@ -457,7 +457,7 @@ function addExpense() {
   _lastField = 'nt';
 
   renderAll();
-  switchTab('overview');
+  switchTab('log');
 }
 
 function delExpense(id) {
