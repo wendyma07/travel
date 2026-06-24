@@ -66,7 +66,7 @@ window.addEventListener('DOMContentLoaded',function(){
   var h=location.hash.replace('#','');
   if(!h)return;
   var pane=document.getElementById(h);
-  var btn=document.querySelector('.tab-btn[onclick*="''+h+''"]');
+  var btn=document.querySelector('.tab-btn[onclick*="\''+h+'\'"]');
   if(pane&&btn){
     document.querySelectorAll('.tab-pane').forEach(function(p){p.classList.remove('active');});
     document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
@@ -99,7 +99,7 @@ window.addEventListener('DOMContentLoaded',function(){
   <div class="sec"><div class="sec-hd">📋 地點資訊</div><div class="sec-bd">
     <div class="row"><div class="row-label">地址</div><div class="row-val">Schokoladenplatz 1, 8802 Kilchberg ZH</div></div>
     <div class="row"><div class="row-label">預約時段</div><div class="row-val">6/28（週日）<strong>10:00</strong> <span class="badge done">✅ 已訂</span></div></div>
-    <div class="row"><div class="row-label">帳號</div><div class="row-val">littlehorese@gmail.com</div></div>
+    <div class="row"><div class="row-label">帳號</div><div class="row-val">littlehorse07@gmail.com</div></div>
     <div class="row"><div class="row-label">停留時間</div><div class="row-val">約 1.5–2 小時（不含購物）</div></div>
     <div class="row"><div class="row-label">官網</div><div class="row-val"><div class="lnks"><a class="tl" href="https://tickets.lindt-home-of-chocolate.com/" target="_blank">取票官網</a></div></div></div>
   </div></div>

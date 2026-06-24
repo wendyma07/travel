@@ -66,7 +66,7 @@ window.addEventListener('DOMContentLoaded',function(){
   var h=location.hash.replace('#','');
   if(!h)return;
   var pane=document.getElementById(h);
-  var btn=document.querySelector('.tab-btn[onclick*="''+h+''"]');
+  var btn=document.querySelector('.tab-btn[onclick*="\''+h+'\'"]');
   if(pane&&btn){
     document.querySelectorAll('.tab-pane').forEach(function(p){p.classList.remove('active');});
     document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
@@ -130,7 +130,7 @@ window.addEventListener('DOMContentLoaded',function(){
     <div class="tip">⏱ 全程約 5–6 小時｜帶防寒外套與雨具</div>
     <div class="lnks">
       <a class="ml" href="https://www.google.com/maps/search/?api=1&query=Schiffsstation+Luzern+Pier+2" target="_blank">琉森碼頭 Pier 2</a>
-      <a class="ml" href="https://www.google.com/maps/search/?api=1&query=Fr%C3%A4km%C3%BCntegg+Kriens+Seilbahn" target="_blank">Kriens 纜椅站</a>
+      <a class="ml" href="https://www.google.com/maps/search/?api=1&query=Fr%C3%A4km%C3%BCntegg+Kriens+Seilbahn" target="_blank">Fräkmüntegg 纜椅站</a>
     </div>
   </div></div>
 </div>
@@ -139,7 +139,7 @@ window.addEventListener('DOMContentLoaded',function(){
   <div class="sec"><div class="sec-hd">📍 地圖</div><div class="sec-bd">
     <a class="map-btn blue" href="https://www.google.com/maps/search/?api=1&query=Pilatus+Kulm" target="_blank">📍 Pilatus Kulm 山頂</a>
     <a class="map-btn green" href="https://www.google.com/maps/search/?api=1&query=Schiffsstation+Luzern+Pier+2" target="_blank">📍 琉森碼頭 Pier 2</a>
-    <a class="map-btn" style="background:#7d6008;" href="https://www.google.com/maps/search/?api=1&query=Fr%C3%A4km%C3%BCntegg+Kriens+Seilbahn" target="_blank">📍 Kriens 纜椅站</a>
+    <a class="map-btn" style="background:#7d6008;" href="https://www.google.com/maps/search/?api=1&query=Fr%C3%A4km%C3%BCntegg+Kriens+Seilbahn" target="_blank">📍 Fräkmüntegg 纜椅站</a>
     <div class="row" style="margin-top:0.5rem"><div class="row-label">出發點</div><div class="row-val">琉森湖邊 Pier 2 碼頭 09:38 湖船</div></div>
     <div class="row"><div class="row-label">終點</div><div class="row-val">Kriens → 公車 1 號回琉森</div></div>
   </div></div>
